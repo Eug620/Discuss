@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-full">
         <div v-for="(item, k) in userStore.userInfo" :key="k">
             {{ k }} : {{ item }}
         </div>

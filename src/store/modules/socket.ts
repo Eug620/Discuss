@@ -20,6 +20,12 @@ export const useSocketStore = defineStore('socket', {
             this.socket.on('disconnect', () => {
                 console.log('disconnect')
             })
+
+            // 异常处理
+            this.socket.on('exception', (data) => {
+                console.log(data)
+                useUserStore().logout()
+            })
         },
         disconnect() {
             this.socket?.disconnect()

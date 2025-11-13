@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useSocketStore } from './socket'
-
+import router from '@/router'
 export const useUserStore = defineStore('user', {
     state: () => ({
         isLogin: false,
@@ -26,6 +26,9 @@ export const useUserStore = defineStore('user', {
             localStorage.removeItem('token')
             localStorage.removeItem('userInfo')
             useSocketStore().disconnect()
+            router.push({
+                name: 'login',
+            })
         },
         init() {
             this.token = localStorage.getItem('token') || ''

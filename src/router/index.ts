@@ -3,10 +3,8 @@ import routes from './routes'
 import NProgress from 'nprogress';
 
 import { pinia } from '@/store'
-import { useUserStore } from '@/store/modules/user'
 import { useMenuStore } from '@/store/modules/menu'
 
-const userStore = useUserStore(pinia)
 const menuStore = useMenuStore(pinia)
 
 const router = createRouter({
@@ -27,8 +25,9 @@ router.beforeEach(async (to, from, next: Function) => {
     if (!NProgress.isStarted()) {
         NProgress.start();
     }
+
     // console.log('[Router]:beforeEach', to.name, from.name);
-    if (userStore.isLogin) { // 已登陆
+    if (localStorage.getItem('token')) { // 已登陆
         if (!menuStore.isLoad) { // 已登陆-未加载路由
             let asyncRoutes: any = await menuStore.GenerateRoutes()
             const layout = routes.find(r => r.path === '/')

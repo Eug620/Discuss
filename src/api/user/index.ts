@@ -14,6 +14,7 @@ import { cloneDeep } from 'lodash-es'
 const Url:any = {
     'server': {
         'login': '/user/login',
+        'register': '/user',
     }
 }
 
@@ -32,6 +33,13 @@ export default {
     Login(data?:any) {
         return request({
             url: Url[requestServerName].login,
+            method: 'post',
+            data
+        })
+    },
+    Register(data?:any) {
+        return request({
+            url: Url[requestServerName].register,
             method: 'post',
             data
         })

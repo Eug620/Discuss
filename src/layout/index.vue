@@ -1,18 +1,7 @@
 <template>
-    <div class="talk-layout">
-        <div class="talk-layout-menu bg-white shadow-md">
-            <div class="talk-layout-menu-item" @click="handleRedirect('dashboard')">
-                首页
-            </div>
-            <div class="talk-layout-menu-item" @click="handleRedirect('about')">
-                关于
-            </div>
-
-            <div class="talk-layout-menu-item talk-layout-menu-bottom" @click="handleLogout">
-                退出登录
-            </div>
-        </div>
-        <div class="talk-layout-content bg-white ">
+    <div class="w-full h-full flex">
+        <div class="flex-[200px]">222</div>
+        <div class="flex-auto">
             <router-view></router-view>
         </div>
     </div>
@@ -20,48 +9,46 @@
 <script lang="ts" setup>
 import { useUserStore } from '@/store/modules/user'
 import router from '@/router'
+import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
+
+
 
 const userStore = useUserStore()
 
-const handleRedirect = (name: string) => {
-    router.push({
-        name
-    })
-}
-
+// const collapsed = ref(false)
 const handleLogout = () => {
     userStore.logout()
     router.push('/login')
 }
 </script>
 <style lang="scss">
-.talk-layout {
-    display: flex;
-    height: 100dvh;
-    overflow: hidden;
-    gap: .6vw;
+// .talk-layout {
+//     // display: flex;
+//     height: 100dvh;
+//     // overflow: hidden;
+//     // gap: .6vw;
 
-    &-menu {
-        width: 16vw;
-        height: 100%;
-        background: #f5f5f5;
-        // padding: .6vw;
-        position: relative;
+//     &-menu {
+//         // width: 16vw;
+//         height: 100%;
+//         background: #f5f5f5;
+//         // padding: .6vw;
+//         position: relative;
 
-        &-item {
-            padding: .6vw;
-        }
+//         &-item {
+//             // padding: .6vw;
+//         }
 
-        &-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-    }
+//         &-bottom {
+//             // position: absolute;
+//             // bottom: 0;
+//             // left: 0;
+//         }
+//     }
 
-    .talk-layout-content {
-        flex: 1;
-        height: 100%;
-    }
-}
-</style>
+//     .talk-layout-content {
+//         // flex: 1;
+//         height: 100%;
+//     }
+// }</style>
