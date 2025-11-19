@@ -2,7 +2,7 @@
   <div class="w-full h-full flex">
       <div class="w-[200px] border-r border-gray-300">
         <div v-for="room in userStore.rooms" @click="handleRoomClick(room)" :key="room.id"
-              class="cursor-pointer">{{ room.name }}</div>
+              class="cursor-pointer p-2">{{ room.name }}</div>
       </div>
       <div class="flex-auto">
           <router-view></router-view>

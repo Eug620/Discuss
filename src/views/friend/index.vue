@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="w-full h-full flex flex-col gap-4 ">
+    <div class="w-full h-full flex flex-col gap-4">
         <div class="w-full h-full p-4">
             <!-- {{user}} -->
            <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2 border-b border-gray-300" :style="{

@@ -1,12 +1,22 @@
 <template>
   <div class="w-full h-full flex">
-    <div class="w-[200px] border-r border-gray-300">
-      <div
-        v-for="page in initRoutes"
-        @click="handleClick(page)"
-        :key="page.path"
-        class="cursor-pointer"
-      >{{ page.meta.title }}</div>
+    <div class="w-[200px] border-r border-gray-300 flex flex-col">
+      <div class="flex-1">
+        <div
+          v-for="page in initRoutes"
+          @click="handleClick(page)"
+          :key="page.path"
+          class="cursor-pointer text-center p-2"
+        >{{ page.meta.title }}</div>
+      </div>
+      <div class="">
+        <div
+          class="cursor-pointer text-center p-2"
+          @click="handleLogout"
+        >
+          退出
+        </div>
+      </div>
     </div>
     <div class="flex-auto">
       <router-view></router-view>
@@ -102,5 +112,4 @@ const handleResultClick = (result: any) => {
 };
 </script>
 <style lang="scss">
-
 </style>

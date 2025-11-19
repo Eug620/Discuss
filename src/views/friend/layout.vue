@@ -2,7 +2,7 @@
   <div class="w-full h-full flex">
       <div class="w-[200px] border-r border-gray-300">
         <div v-for="friend in userStore.friends" @click="handleFriendClick(friend)" :key="friend.id"
-              class="cursor-pointer">{{ friend.friend_info.username }}</div>
+              class="cursor-pointer p-2">{{ friend.friend_info.username }}</div>
       </div>
       <div class="flex-auto">
           <router-view></router-view>
