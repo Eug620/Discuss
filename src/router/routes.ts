@@ -14,7 +14,7 @@ export const initRoutes = [
     },
     // 好友
     {
-        path: 'friend/:friendId',
+        path: 'friend',
         name: 'friend',
         meta: {
             keepAlive: true,
@@ -23,11 +23,38 @@ export const initRoutes = [
             affix: true,
             icon: 'IconUser'
         },
-        component: () => import('@/views/friend/index.vue')
+        redirect: { name: 'friend-dashboard' },
+        component: () => import('@/views/friend/layout.vue'),
+        children: [
+            {
+                path: 'dashboard',
+                name: 'friend-dashboard',
+                meta: {
+                    keepAlive: true,
+                    title: '欢迎页',
+                    auth: true,
+                    affix: true,
+                    icon: 'IconUser'
+                },
+                component: () => import('@/views/dashboard/index.vue')
+            },
+            {
+                path: ':id',
+                name: 'friend-info',
+                meta: {
+                    keepAlive: true,
+                    title: '消息',
+                    auth: true,
+                    affix: true,
+                    icon: 'IconMessage'
+                },
+                component: () => import('@/views/friend/index.vue')
+            }
+        ]
     },
     // 房间
     {
-        path: 'room/:roomId',
+        path: 'room',
         name: 'room',
         meta: {
             keepAlive: true,
@@ -36,7 +63,34 @@ export const initRoutes = [
             affix: true,
             icon: 'IconMessage'
         },
-        component: () => import('@/views/room/index.vue')
+        redirect: { name: 'room-dashboard' },
+        component: () => import('@/views/room/layout.vue'),
+        children: [
+            {
+                path: 'dashboard',
+                name: 'room-dashboard',
+                meta: {
+                    keepAlive: true,
+                    title: '欢迎页',
+                    auth: true,
+                    affix: true,
+                    icon: 'IconUser'
+                },
+                component: () => import('@/views/dashboard/index.vue')
+            },
+            {
+                path: ':roomId',
+                name: 'room-message',
+                meta: {
+                    keepAlive: true,
+                    title: '房间消息',
+                    auth: true,
+                    affix: true,
+                    icon: 'IconMessage'
+                },
+                component: () => import('@/views/room/index.vue')
+            }
+        ]
     },
 ]
 
@@ -60,7 +114,7 @@ export const frameIn: any[] = [
     {
         path: '/',
         redirect: { name: 'dashboard' },
-        component: () => import('@/layout/index.vue'),
+        component: () => import('@/layout/_index.vue'),
         children: [
             ...initRoutes,
         ]
