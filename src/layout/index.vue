@@ -1,6 +1,23 @@
 <template>
     <div class="w-full h-full flex">
-        <div class="flex-[200px]">222</div>
+        <div class="w-[100px] border-r">
+            <div class="flex flex-col gap-4 p-4">
+                <div v-for="tab in tabs" :key="tab.name" class="cursor-pointer" @click="activeTab = tab.name">{{
+                    tab.label }}</div>
+            </div>
+        </div>
+        <div class="w-[200px] border-r">
+            <div class="flex flex-col gap-4 p-4">
+                <template v-if="activeTab === TabName.rooms">
+                    <div v-for="room in userStore.rooms" @click="handleRoomClick(room)" :key="room.id"
+                        class="cursor-pointer">{{ room.name }}</div>
+                </template>
+                <template v-if="activeTab === TabName.friends">
+                    <div v-for="friend in userStore.friends" @click="handleFriendClick(friend)" :key="friend.id"
+                        class="cursor-pointer">{{ friend.friend_info.username }}</div>
+                </template>
+            </div>
+        </div>
         <div class="flex-auto">
             <router-view></router-view>
         </div>
@@ -13,13 +30,42 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 
-
+enum TabName {
+    rooms = 'rooms',
+    friends = 'friends'
+}
 const userStore = useUserStore()
-
+const activeTab = ref<TabName>(TabName.rooms)
+const tabs = ref([
+    {
+        name: TabName.rooms,
+        label: '房间'
+    },
+    {
+        name: TabName.friends,
+        label: '好友'
+    }
+])
 // const collapsed = ref(false)
 const handleLogout = () => {
     userStore.logout()
     router.push('/login')
+}
+const handleRoomClick = (room: any) => {
+    router.push({
+        name: 'room',
+        params: {
+            roomId: room.id
+        }
+    })
+}
+const handleFriendClick = (friend: any) => {
+    router.push({
+        name: 'friend',
+        params: {
+            friendId: friend.friend_info.id
+        }
+    })
 }
 </script>
 <style lang="scss">

@@ -12,6 +12,32 @@ export const initRoutes = [
         },
         component: () => import('@/views/dashboard/index.vue')
     },
+    // 好友
+    {
+        path: 'friend/:friendId',
+        name: 'friend',
+        meta: {
+            keepAlive: true,
+            title: '好友',
+            auth: true,
+            affix: true,
+            icon: 'IconUser'
+        },
+        component: () => import('@/views/friend/index.vue')
+    },
+    // 房间
+    {
+        path: 'room/:roomId',
+        name: 'room',
+        meta: {
+            keepAlive: true,
+            title: '房间',
+            auth: true,
+            affix: true,
+            icon: 'IconMessage'
+        },
+        component: () => import('@/views/room/index.vue')
+    },
 ]
 
 

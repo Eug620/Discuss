@@ -15,6 +15,8 @@ const Url:any = {
     'server': {
         'login': '/user/login',
         'register': '/user',
+        'friend': '/friend',
+        'roomMine': '/room/mine',
     }
 }
 
@@ -42,6 +44,18 @@ export default {
             url: Url[requestServerName].register,
             method: 'post',
             data
+        })
+    },
+    GetFriends() {
+        return request({
+            url: Url[requestServerName].friend,
+            method: 'get',
+        })
+    },
+    GetRoomMine() {
+        return request({
+            url: Url[requestServerName].roomMine,
+            method: 'get',
         })
     },
 }
