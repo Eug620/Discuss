@@ -102,33 +102,5 @@ const handleResultClick = (result: any) => {
 };
 </script>
 <style lang="scss">
-// .talk-layout {
-//     // display: flex;
-//     height: 100dvh;
-//     // overflow: hidden;
-//     // gap: .6vw;
 
-//     &-menu {
-//         // width: 16vw;
-//         height: 100%;
-//         background: #f5f5f5;
-//         // padding: .6vw;
-//         position: relative;
-
-//         &-item {
-//             // padding: .6vw;
-//         }
-
-//         &-bottom {
-//             // position: absolute;
-//             // bottom: 0;
-//             // left: 0;
-//         }
-//     }
-
-//     .talk-layout-content {
-//         // flex: 1;
-//         height: 100%;
-//     }
-// }
 </style>

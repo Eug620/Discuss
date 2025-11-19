@@ -92,6 +92,18 @@ export const initRoutes = [
             }
         ]
     },
+    {
+        path: 'apply',
+        name: 'apply',
+        meta: {
+            keepAlive: true,
+            title: '申请',
+            auth: true,
+            affix: true,
+            icon: 'IconCommand'
+        },
+        component: () => import('@/views/apply/index.vue')
+    },
 ]
 
 

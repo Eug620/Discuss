@@ -19,6 +19,7 @@ const Url:any = {
         'roomMine': '/room/mine',
         'room': '/room',
         'apply': '/apply',
+        'applyMine': '/apply/mine',
     }
 }
 
@@ -77,6 +78,12 @@ export default {
             url: `${Url[requestServerName].apply}`,
             method: 'post',
             data
+        })
+    },
+    GetApplyMine() {
+        return request({
+            url: `${Url[requestServerName].applyMine}`,
+            method: 'get'
         })
     },
 
