@@ -18,6 +18,7 @@ serverApi.GetApplyMine().then((res:any) => {
 serverApi.GetMemberInfo({user_id: userStore.userInfo?.id}).then((res:any) => {
     console.log(res.data)
 })
+
 </script>
 <style lang="">
     
