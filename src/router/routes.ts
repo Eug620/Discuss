@@ -39,6 +39,18 @@ export const initRoutes = [
                 component: () => import('@/views/dashboard/index.vue')
             },
             {
+                path: 'search',
+                name: 'friend-search',
+                meta: {
+                    keepAlive: true,
+                    title: '搜索好友',
+                    auth: true,
+                    affix: true,
+                    icon: 'IconSearch'
+                },
+                component: () => import('@/views/friend/search.vue')
+            },
+            {
                 path: ':id',
                 name: 'friend-info',
                 meta: {
@@ -77,6 +89,30 @@ export const initRoutes = [
                     icon: 'IconUser'
                 },
                 component: () => import('@/views/dashboard/index.vue')
+            },
+            {
+                path: 'search',
+                name: 'room-search',
+                meta: {
+                    keepAlive: true,
+                    title: '搜索房间',
+                    auth: true,
+                    affix: true,
+                    icon: 'IconSearch'
+                },
+                component: () => import('@/views/room/search.vue')
+            },
+            {
+                path: 'create',
+                name: 'room-create',
+                meta: {
+                    keepAlive: true,
+                    title: '创建房间',
+                    auth: true,
+                    affix: true,
+                    icon: 'IconAdd'
+                },
+                component: () => import('@/views/room/create.vue')
             },
             {
                 path: ':roomId',
