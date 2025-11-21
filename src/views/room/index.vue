@@ -38,12 +38,12 @@ const story = ref("");
 const route = useRoute();
 
 const getHistory = computed(() => {
-  return socketStore.roomMessageMap.get(route.params.roomId as string) || [];
+  return socketStore.roomMessageMap.get(route.params.id as string) || [];
 });
 
 const handleSend = () => {
   (socketStore.socket as Socket).emit("room", {
-    room: route.params.roomId,
+    room: route.params.id,
     content: story.value,
   });
   story.value = "";

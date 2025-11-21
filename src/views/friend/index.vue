@@ -3,7 +3,7 @@
         <div class="w-full h-full p-4">
             <!-- {{user}} -->
            <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2 border-b border-gray-300" :style="{
-            textAlign: message.sender === route.params.friendId ? 'left' : 'right',
+            textAlign: message.sender === route.params.id ? 'left' : 'right',
            }">
             <!-- 发送人：
             {{ message.sender }} 
@@ -37,12 +37,12 @@ const route = useRoute();
 // const user = JSON.parse(localStorage.getItem("userInfo") || "{}");
 
 const getHistory = computed(() => {
-  return socketStore.userMessageMap.get(route.params.friendId as string) || [];
+  return socketStore.userMessageMap.get(route.params.id as string) || [];
 });
 
 const handleSend = () => {
   (socketStore.socket as Socket).emit("user", {
-    sender: route.params.friendId,
+    sender: route.params.id,
     content: story.value,
   });
   story.value = "";
