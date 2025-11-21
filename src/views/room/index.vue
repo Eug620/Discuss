@@ -4,13 +4,14 @@
                 <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2 border-b border-gray-300" :style="{
             textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left',
            }">
-            <!-- 发送人：
-            {{ message.sender }} 
-             接收人：
-            {{ message.receiver }} 
-            信息： -->
-            <div >
-                {{ message.content }}
+            <div class="flex">
+                <div class="px-2" v-if="message.sender !== userStore.userInfo.id" >
+                  [{{getUserInfo(message.sender)}}]
+                </div>
+                <div class=flex-1> {{ message.content }} </div>
+                <div class="px-2" v-if="message.sender === userStore.userInfo.id" >
+                  [{{ userStore.userInfo.username}}]
+                </div>
             </div>
             <div style="font-size: 12px; color: #999;">
                 {{ new Date(message.timestamp).toLocaleString() }}
@@ -37,10 +38,20 @@ const userStore = useUserStore();
 const story = ref("");
 const route = useRoute();
 
+// 获取房间消息历史
 const getHistory = computed(() => {
   return socketStore.roomMessageMap.get(route.params.id as string) || [];
 });
+// 获取房间成员
+const getMember = computed(() => {
+  return socketStore.roomMemberMap.get(route.params.id as string) || [];
+});
+// 获取用户信息
+const getUserInfo = (user_id: string) => {
+  return getMember.value.find((item: any) => item.user_id === user_id)?.user_info?.username;
+}
 
+// 发送消息
 const handleSend = () => {
   (socketStore.socket as Socket).emit("room", {
     room: route.params.id,

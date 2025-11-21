@@ -51,7 +51,18 @@ export const useRoomStore = defineStore('room', {
             }).then((res:any) => {
                 this.rooms = res.data || []
                 this.rooms.forEach(room => {
+                    // 加入房间
                     useSocketStore().socket?.emit('join', room.room_id)
+
+                    // 获取房间成员
+                    ServerApi.GetMemberInfo({
+                        room_id: room.room_id,
+                    }).then((res: any) => {
+                        if (res.code === 200) {
+                            
+                            useSocketStore().roomMemberMap.set(room.room_id, res.data || [])
+                        }
+                    });
                 })
             })
         }

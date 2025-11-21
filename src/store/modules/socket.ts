@@ -4,8 +4,12 @@ import { useUserStore } from './user'
 export const useSocketStore = defineStore('socket', {
     state: () => ({
         socket: null as Socket | null,
+        // 用户id - 用户消息历史
         userMessageMap: new Map<string, any[]>(),
+        // 房间id - 房间消息历史
         roomMessageMap: new Map<string, any[]>(),
+        // 房间id - 房间成员
+        roomMemberMap: new Map<string, any[]>(),
     }),
     actions: {
         initSocket() {
