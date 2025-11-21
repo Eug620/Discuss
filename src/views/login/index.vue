@@ -6,9 +6,9 @@
                 <label for="bluetooth"></label>
             </div>
 
-            <input type="text" class="input" placeholder="用户名" v-model="loginForm.username">
-            <input type="password" class="input" placeholder="密码" v-model="loginForm.password">
-            <input type="text" class="input" placeholder="邮箱" v-if="activeTab" v-model="loginForm.email">
+            <input type="text" class="input" placeholder="用户名" v-model.trim="loginForm.username">
+            <input type="password" class="input" placeholder="密码" v-model.trim="loginForm.password">
+            <input type="text" class="input" placeholder="邮箱" v-if="activeTab" v-model.trim="loginForm.email">
             <button type="submit" @click="handleLogin">提交</button>
         </div>
     </div>
@@ -32,6 +32,9 @@ const loginForm = reactive({
 
 const handleLogin = () => {
     console.log(serverApi)
+    if (!loginForm.username || !loginForm.password) {
+        return
+    }
     serverApi[activeTab.value ? 'Register' : 'Login'](loginForm).then((res: any) => {
         console.log(res.data)
         !activeTab.value && userStore.login(res.data)
