@@ -11,11 +11,10 @@
 import request from '@/plugin/axios'
 import { cloneDeep, get } from 'lodash-es'
 
-const Url:any = {
+const Url: any = {
     'server': {
-        'login': '/user/login',
-        'register': '/user',
-
+        'apply': '/apply', // 我发起的所有申请
+        'applyMine': '/apply/mine', // 别人申请我的
     }
 }
 
@@ -31,25 +30,32 @@ const isMock = import.meta.env.VITE_APP_BUILD_MODE === 'true'
 const requestServerName = isMock ? 'mock' : 'server'
 
 export default {
-    Login(data?:any) {
+
+    apply(data?: any) {
         return request({
-            url: Url[requestServerName].login,
+            url: `${Url[requestServerName].apply}`,
             method: 'post',
             data
         })
     },
-    Register(data?:any) {
+    getApply() {
         return request({
-            url: Url[requestServerName].register,
-            method: 'post',
-            data
-        })
-    },
-    GetUserInfo(id?:string) {
-        return request({
-            url: `${Url[requestServerName].register}/${id}`,
+            url: `${Url[requestServerName].apply}`,
             method: 'get'
         })
     },
-
+    // 处理申请
+    handleApply(data?: any) {
+        return request({
+            url: `${Url[requestServerName].apply}/${data.id}`,
+            method: 'PATCH',
+            data
+        })
+    },
+    GetApplyMine() {
+        return request({
+            url: `${Url[requestServerName].applyMine}`,
+            method: 'get'
+        })
+    },
 }

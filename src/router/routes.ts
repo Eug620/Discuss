@@ -115,7 +115,7 @@ export const initRoutes = [
                 component: () => import('@/views/room/create.vue')
             },
             {
-                path: ':roomId',
+                path: ':id',
                 name: 'room-message',
                 meta: {
                     keepAlive: true,

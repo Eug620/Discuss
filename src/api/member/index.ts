@@ -13,8 +13,8 @@ import { cloneDeep, get } from 'lodash-es'
 
 const Url:any = {
     'server': {
-        'login': '/user/login',
-        'register': '/user',
+        'member': '/member',
+
 
     }
 }
@@ -31,25 +31,12 @@ const isMock = import.meta.env.VITE_APP_BUILD_MODE === 'true'
 const requestServerName = isMock ? 'mock' : 'server'
 
 export default {
-    Login(data?:any) {
-        return request({
-            url: Url[requestServerName].login,
-            method: 'post',
-            data
-        })
-    },
-    Register(data?:any) {
-        return request({
-            url: Url[requestServerName].register,
-            method: 'post',
-            data
-        })
-    },
-    GetUserInfo(id?:string) {
-        return request({
-            url: `${Url[requestServerName].register}/${id}`,
-            method: 'get'
-        })
-    },
 
+    GetMemberInfo(query?:any) {
+        return request({
+            url: `${Url[requestServerName].member}`,
+            method: 'get',
+            params: query
+        })
+    },
 }

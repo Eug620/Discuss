@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { User } from './user'
-import userApi from '@/api/user'
+import ServerApi from '@/api/index'
 
 interface Friend {
     createdAt: string
@@ -25,7 +25,7 @@ export const useFriendStore = defineStore('friend', {
     },
     actions: {
         getFriends() {
-            userApi.GetFriends().then(res => {
+            ServerApi.GetFriends().then(res => {
                 console.log(res)
                 this.friends = res.data
             })
