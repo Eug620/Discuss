@@ -1,5 +1,22 @@
 <template lang="">
     <div class="w-full h-full flex flex-col gap-4 ">
+        <div class="w-full text-center border-b border-gray-300 py-2">
+            <div class="">{{ getRoomInfo.name }}</div>
+        </div>
+        <div class="w-full border-b border-gray-300 py-2" v-if="applyList.length > 0">
+          <div class="" v-for="apply in applyList">
+              {{apply.user_info.username}} 申请加入房间
+
+              <template v-if="apply.handle_status">
+                {{apply.status ? '已同意' : '已拒绝'}}
+              </template>
+              <template v-else>
+                <button  @click="handleHandleApply(apply, true)">同意</button>
+                <button  @click="handleHandleApply(apply, false)">拒绝</button>
+              </template>
+          </div>
+        </div>
+
         <div class="w-full h-full p-4">
                 <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2 border-b border-gray-300" :style="{
             textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left',
@@ -28,13 +45,16 @@
 <script setup lang="ts">
 import { useSocketStore } from "@/store/modules/socket";
 import { useUserStore } from "@/store/modules/user";
-import { ref } from "vue";
+import { useRoomStore } from "@/store/modules/room";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { Socket } from "socket.io-client";
 import { computed } from "vue";
+import ServerApi from "@/api";
 
 const socketStore = useSocketStore();
 const userStore = useUserStore();
+const roomStore = useRoomStore();
 const story = ref("");
 const route = useRoute();
 
@@ -50,6 +70,38 @@ const getMember = computed(() => {
 const getUserInfo = (user_id: string) => {
   return getMember.value.find((item: any) => item.user_id === user_id)?.user_info?.username;
 }
+// 获取房间信息
+const getRoomInfo = computed(() => {
+  return roomStore.getRoomMap[route.params.id as string].room_info || {}
+})
+
+
+// 监听路由变化
+const applyList = ref([])
+watch(() => route.params.id, (room_id) => {
+  handleApplyRoom()
+})
+
+function handleApplyRoom() {
+  if (!roomStore.roomsMine.find((item: any) => item.id === route.params.id)) {
+    return applyList.value = []
+  }
+  ServerApi.getApplyRoom(route.params.id as string).then((res: any) => {
+    applyList.value = res.data || []
+  })
+}
+handleApplyRoom()
+
+// 处理申请
+function handleHandleApply(apply: any, status: boolean) {
+
+  ServerApi.handleApply({
+    id: apply.id,
+    status
+  })
+}
+
+
 
 // 发送消息
 const handleSend = () => {

@@ -3,7 +3,7 @@
       <div class="w-[240px] border-r border-gray-300">
         <div class="flex justify-center items-center gap-2 p-2 text-xs">
 
-            <input type="text" placeholder="Enter username" class="w-full rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center"/>
+            <input type="text" placeholder="Enter username" v-model="username" class="w-full rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center"/>
 
             <router-link to="/friend/search">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -12,7 +12,7 @@
             </router-link>
 
         </div>
-        <div v-for="friend in friendStore.friends" @click="handleFriendClick(friend)" :key="friend.id"
+        <div v-for="friend in getFriends" @click="handleFriendClick(friend)" :key="friend.id"
               class="cursor-pointer p-2">{{ friend.friend_info.username }}</div>
       </div>
       <div class="flex-auto p-2">
@@ -23,8 +23,13 @@
 <script setup lang="ts">
 import { useFriendStore } from "@/store/modules/friend";
 import router from "@/router";
+import { ref, computed } from "vue";
 
 const friendStore = useFriendStore();
+const username = ref('')
+const getFriends = computed(() => {
+    return friendStore.friends.filter((friend: any) => friend.friend_info.username.includes(username.value))
+})
 
 const handleFriendClick = (friend: any) => {
   router.push({

@@ -3,7 +3,7 @@
       <div class="w-[240px] border-r border-gray-300">
         <div class="flex justify-center items-center gap-2 p-2 text-xs">
 
-            <input type="text" placeholder="Enter room name" class="w-full rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center"/>
+            <input type="text" placeholder="Enter room name" v-model="roomName" class="w-full rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center"/>
 
             <router-link to="/room/search">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -18,7 +18,7 @@
             </router-link>
 
         </div>
-        <div v-for="room in roomStore.rooms" @click="handleRoomClick(room)" :key="room.id"
+        <div v-for="room in getRooms" @click="handleRoomClick(room)" :key="room.id"
               class="cursor-pointer p-2">{{ room.room_info.name }} </div>
       </div>
       <div class="flex-auto p-2">
@@ -29,10 +29,15 @@
 <script setup lang="ts">
 import { useRoomStore } from "@/store/modules/room";
 import router from "@/router";
+import { ref, computed } from "vue";
 // https://heroicons.com/
 // 引入 heroicons 图标
 
 const roomStore = useRoomStore();
+const roomName = ref('')
+const getRooms = computed(() => {
+    return roomStore.rooms.filter((room: any) => room.room_info.name.includes(roomName.value))
+})
 
 const handleRoomClick = (room: any) => {
   router.push({

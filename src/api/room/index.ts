@@ -15,6 +15,7 @@ const Url:any = {
     'server': {
         'roomMine': '/room/mine',
         'room': '/room',
+        'roomSearch': '/room/search',
     }
 }
 
@@ -40,6 +41,12 @@ export default {
     GetRoomInfo(id?:string) {
         return request({
             url: `${Url[requestServerName].room}/${id}`,
+            method: 'get'
+        })
+    },
+    SearchRoom(name?:string) {
+        return request({
+            url: `${Url[requestServerName].roomSearch}?name=${name}`,
             method: 'get'
         })
     },
