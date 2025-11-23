@@ -1,37 +1,48 @@
 <template lang="">
-    <div class="apply p-2 flex flex-col gap-2 h-full">
-      <div>
-        <h2>待处理申请</h2>
-        <template v-if="applyStore.pendingApplies.length > 0">
-            <div v-for="item in applyStore.pendingApplies" :key="item.id">
-                {{item.user_info.username}} 申请加为好友
-                <template v-if="!item.handle_status">
-                    <button @click="applyStore.handleApply(item.id, true)">同意</button>
-                    <button @click="applyStore.handleApply(item.id, false)">拒绝</button>
-                </template>
+    <div class="apply p-2 flex gap-4 h-full">
+      <div class="flex-1">
+        <div class="border-b border-gray-300 text-center py-2">待处理申请</div>
+        <div v-if="applyStore.pendingApplies.length > 0">
+            <div v-for="item in applyStore.pendingApplies" :key="item.id" class="flex justify-around py-2">
+                <div>{{item.user_info.username}} 申请加为好友</div>
+                <div v-if="!item.handle_status" class="flex gap-4">
+                    <!-- 同意 -->
+                    <button @click="applyStore.handleApply(item.id, true)" class="cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                      </svg>
+                    </button>
+                    <!-- 拒绝 -->
+                    <button @click="applyStore.handleApply(item.id, false)" class="cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg>
 
-                <template v-else>
+                    </button>
+                </div>
+
+                <div v-else>
                   {{item.status ? '已同意' : '已拒绝'}}
-                </template>
+                </div>
 
             </div>
-        </template>
-        <template v-else>
+        </div>
+        <div v-else>
             <div>
                 暂无申请
             </div>
-        </template>
+        </div>
       </div>
 
-      <div class="h-1/2">
-          <h2>我发起的所有申请</h2>
-          <div v-for="item in applyStore.applies" :key="item.id">
-              <template v-if="item.room_id">
-                {{item.user_info.username}} 申请加入房间 {{item.room_info.name}}
-              </template>
-              <template v-else>
-                {{item.user_info.username}} 申请加 {{item.apply_user_info.username}} 为好友
-              </template>
+      <div class="flex-1">
+          <div class="border-b border-gray-300 text-center py-2">我发起的所有申请</div>
+          <div v-for="item in applyStore.applies" :key="item.id" class="flex justify-around py-2">
+              <div v-if="item.room_id">
+                申请加入房间 {{item.room_info.name}}
+              </div>
+              <div v-else>
+                申请加 {{item.apply_user_info.username}} 为好友
+              </div>
 
               <span v-if="item.handle_status">{{item.status ? '已同意' : '已拒绝'}}</span>
               <span v-else>待处理</span>

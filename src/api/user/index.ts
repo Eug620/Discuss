@@ -1,9 +1,9 @@
 /*
  * @Author       : eug yyh3531@163.com
  * @Date         : 2022-08-31 15:08:14
- * @LastEditors  : eug yyh3531@163.com
- * @LastEditTime : 2023-08-03 15:16:59
- * @FilePath     : /micro-vue/src/api/user/index.ts
+ * @LastEditors  : Eug yyh3531@163.com
+ * @LastEditTime : 2025-11-23 22:47:08
+ * @FilePath     : \e-talk\src\api\user\index.ts
  * @Description  : filename
  * 
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved. 
@@ -15,6 +15,8 @@ const Url:any = {
     'server': {
         'login': '/user/login',
         'register': '/user',
+        'userSearch': '/user/search',
+
 
     }
 }
@@ -48,6 +50,12 @@ export default {
     GetUserInfo(id?:string) {
         return request({
             url: `${Url[requestServerName].register}/${id}`,
+            method: 'get'
+        })
+    },
+    SearchUser(name?:string) {
+        return request({
+            url: `${Url[requestServerName].userSearch}?username=${name}`,
             method: 'get'
         })
     },
