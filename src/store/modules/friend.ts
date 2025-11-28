@@ -17,7 +17,7 @@ export const useFriendStore = defineStore('friend', {
     getters: {
         getFriendMap: (state) => {
             return state.friends.reduce((prev, cur) => {
-                prev[cur.id] = cur
+                prev[cur.friend_info.id] = cur
                 return prev
             }, {} as Record<string, Friend>)
         },

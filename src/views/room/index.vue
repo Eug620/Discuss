@@ -1,5 +1,6 @@
 <template lang="">
-    <div class="w-full h-full flex flex-col gap-4 ">
+    <div class="w-full h-full flex gap-4 ">
+      <div class="w-full h-full flex-1 flex flex-col gap-4">
         <div class="w-full text-center border-b border-gray-300 py-2 relative">
             <div class="">
               {{ getRoomInfo.name }}
@@ -46,6 +47,15 @@
               </svg>
             </button>
         </div>
+      </div>
+      <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2">
+        <div class="border-b border-gray-300 pb-2">群成员</div>
+        <div v-for="member in getMember" :key="member.user_id" class="text-sm" :class="{
+          'text-rose-400': member.user_id === userStore.userInfo.id,
+        }">
+          {{member.user_info.username}}
+        </div>
+      </div>
     </div>
 </template>
 <script setup lang="ts">

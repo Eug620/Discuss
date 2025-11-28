@@ -9,7 +9,13 @@
  * Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
 -->
 <template lang="">
+  <div class="w-full h-full flex gap-4 ">
     <div class="w-full h-full flex flex-col gap-4">
+        <div class="w-full text-center border-b border-gray-300 py-2 relative">
+            <div class="">
+              {{ getFriendInfo.username }}
+            </div>
+        </div>
         <div class="w-full h-full p-4">
             <!-- {{user}} -->
            <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2" :style="{
@@ -38,14 +44,24 @@
             </button>
         </div>
     </div>
+    <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2">
+      <div class="border-b border-gray-300 pb-2">用户信息</div>
+      <div class="text-sm" >{{ getFriendInfo.username }}</div>
+      <div class="text-sm" >{{ getFriendInfo.email }}</div>
+      <div class="text-sm" >{{ new Date(getFriendInfo.createdAt).toLocaleString() }}</div>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import { useSocketStore } from "@/store/modules/socket";
+import { useFriendStore } from "@/store/modules/friend";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { Socket } from "socket.io-client";
 
 const socketStore = useSocketStore();
+const friendStore = useFriendStore();
+
 const story = ref("");
 const route = useRoute();
 // const user = JSON.parse(localStorage.getItem("userInfo") || "{}");
@@ -53,6 +69,11 @@ const route = useRoute();
 const getHistory = computed(() => {
   return socketStore.userMessageMap.get(route.params.id as string) || [];
 });
+
+const getFriendInfo = computed(() => {
+  return friendStore.getFriendMap[route.params.id as string].friend_info || {}
+})
+
 
 const handleSend = () => {
   (socketStore.socket as Socket).emit("user", {
