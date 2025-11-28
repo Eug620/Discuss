@@ -1,7 +1,9 @@
 <template lang="">
     <div class="w-full h-full flex flex-col gap-4 ">
-        <div class="w-full text-center border-b border-gray-300 py-2">
-            <div class="">{{ getRoomInfo.name }}</div>
+        <div class="w-full text-center border-b border-gray-300 py-2 relative">
+            <div class="">
+              {{ getRoomInfo.name }}
+            </div>
         </div>
         <div class="w-full border-b border-gray-300 py-2" v-if="applyList.length > 0">
           <div class="" v-for="apply in applyList">
