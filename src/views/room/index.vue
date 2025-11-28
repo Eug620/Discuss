@@ -104,6 +104,10 @@ function handleHandleApply(apply: any, status: boolean) {
   ServerApi.handleApply({
     id: apply.id,
     status
+  }).then((res: any) => {
+    if (res.code === 200) {
+      handleApplyRoom()
+    }
   })
 }
 

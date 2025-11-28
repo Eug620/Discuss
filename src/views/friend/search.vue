@@ -51,7 +51,12 @@ const handleSearch = () => {
 };
 
 const handleJoin = (apply_user_id: string) => {
-    ServerApi.apply({ apply_user_id })
+    ServerApi.apply({ apply_user_id }).then((res: any) => {
+        if (res.code === 200) {
+            username.value = ''
+            result.value = []
+        }
+    })
 };
 </script>
 <style lang="scss"></style>

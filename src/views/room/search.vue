@@ -59,7 +59,12 @@ const handleSearch = () => {
 };
 
 const handleJoin = (room_id: string) => {
-    ServerApi.apply({room_id})
+    ServerApi.apply({room_id}).then((res: any) => {
+        if (res.code === 200) {
+            roomName.value = ''
+            result.value = []
+        }
+    })
 };
 </script>
 <style lang="scss">

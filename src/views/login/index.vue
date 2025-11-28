@@ -39,6 +39,9 @@ const handleLogin = () => {
         console.log(res.data)
         !activeTab.value && userStore.login(res.data)
         !activeTab.value && router.push('/')
+        if (activeTab.value) {
+            activeTab.value = false
+        }
     })
 }
 
