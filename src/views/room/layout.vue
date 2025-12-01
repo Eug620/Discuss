@@ -1,6 +1,6 @@
 <template lang="">
   <div class="w-full h-full flex">
-      <div class="w-[240px] shadow-md">
+      <div class="w-[240px] shadow-md animate__fadeIn animate__animated">
         <div class="flex justify-center items-center gap-2 p-2 text-xs">
 
             <input type="text" placeholder="Enter room name" v-model="roomName" class="w-full rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center"/>
@@ -21,7 +21,7 @@
         <div v-for="room in getRooms" @click="handleRoomClick(room)" :key="room.id"
               class="cursor-pointer p-2">{{ room.room_info.name }} </div>
       </div>
-      <div class="flex-auto p-2">
+      <div class="flex-auto p-2 animate__fadeIn animate__animated">
           <router-view></router-view>
       </div>
   </div>

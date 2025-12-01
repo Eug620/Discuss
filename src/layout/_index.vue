@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full flex">
-    <div class="w-[80px] flex flex-col shadow-md">
+    <div class="w-[80px] flex flex-col shadow-md animate__fadeIn animate__animated">
       <div class="flex-1">
         <div
           v-for="page in initRoutes"
@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="flex-auto">
+    <div class="flex-auto animate__fadeIn animate__animated">
       <router-view></router-view>
     </div>
   </div>
