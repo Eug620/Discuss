@@ -3,18 +3,7 @@ import { markRaw } from 'vue'
 import { filterAsnycRouter } from '@/importRoutercom';
 
 import { initRoutes } from '@/router/routes';
-const menu: any[] = [
-    {
-        path: '/about',
-        name: 'about',
-        component: 'views/about/index',
-        meta: {
-            title: 'about',
-            icon: 'about',
-            roles: ['admin', 'user']
-        }
-    },
-]
+const menu: any[] = []
 
 export const useMenuStore = defineStore('menu', {
     state: () => ({

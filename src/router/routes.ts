@@ -174,6 +174,21 @@ export const frameLogin = [
         component: () => import('@/views/login/index.vue')
     },
 ]
+
+export const frameSetting = [
+    {
+        path: '/setting',
+        name: 'setting',
+        meta: {
+            keepAlive: true,
+            title: '设置',
+            auth: true,
+            affix: true,
+            icon: 'IconSetting'
+        },
+        component: () => import('@/views/setting/index.vue')
+    }
+]
 export const frameIn: any[] = [
     {
         path: '/',
@@ -181,6 +196,7 @@ export const frameIn: any[] = [
         component: () => import('@/layout/index.vue'),
         children: [
             ...initRoutes,
+            ...frameSetting,
         ]
     }
 ]
