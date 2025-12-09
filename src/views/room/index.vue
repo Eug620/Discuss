@@ -1,7 +1,7 @@
 <template lang="">
     <div class="w-full h-full flex gap-4 ">
       <div class="w-full h-full flex-1 flex flex-col gap-4">
-        <div class="w-full text-center border-b border-gray-300 py-2 relative">
+        <div class="w-full text-center border-b border-gray-300 pb-2 relative">
             <div class="">
               {{ getRoomInfo.name }}
             </div>
@@ -24,12 +24,12 @@
                 <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2" :style="{
             textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left',
            }">
-            <div class="flex mb-1">
-                <div class="px-2" v-if="message.sender !== userStore.userInfo.id" >
+            <div class="flex mb-1 items-center ">
+                <div class="px-2 text-sm" v-if="message.sender !== userStore.userInfo.id" >
                   [{{getUserInfo(message.sender)}}]
                 </div>
                 <div class="flex-1"> 
-                  <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative">
+                  <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative text-sm">
                     <span>
                       {{ message.content }}
                     </span>
@@ -47,11 +47,11 @@
                     </div>
                   </div>
                 </div>
-                <div class="px-2" v-if="message.sender === userStore.userInfo.id" >
+                <div class="px-2 text-sm" v-if="message.sender === userStore.userInfo.id" >
                   [{{ userStore.userInfo.username}}]
                 </div>
             </div>
-            <div style="font-size: 12px; color: #999;">
+            <div class="text-xs text-gray-700">
                 {{ new Date(message.timestamp).toLocaleString() }}
             </div>
            </div>
@@ -66,7 +66,7 @@
             </button>
         </div>
       </div>
-      <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2">
+      <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2 pt-0">
         <div class="border-b border-gray-300 pb-2">群成员</div>
         <div v-for="member in getMember" :key="member.user_id" class="text-sm flex justify-between items-center" :class="{
           'text-rose-400': member.user_id === userStore.userInfo.id,

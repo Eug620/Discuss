@@ -11,7 +11,7 @@
 <template lang="">
   <div class="w-full h-full flex gap-4 ">
     <div class="w-full h-full flex flex-col gap-4">
-        <div class="w-full text-center border-b border-gray-300 py-2 relative">
+        <div class="w-full text-center border-b border-gray-300 pb-2 relative">
             <div class="">
               {{ getFriendInfo.username }}
             </div>
@@ -45,7 +45,7 @@
                 </div>
               </div>
             </div>
-            <div style="font-size: 12px; color: #999;">
+            <div class="text-xs text-gray-700" >
                 {{ new Date(message.timestamp).toLocaleString() }}
             </div>
            </div>
@@ -60,7 +60,7 @@
             </button>
         </div>
     </div>
-    <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2">
+    <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2 pt-0">
       <div class="border-b border-gray-300 pb-2">用户信息</div>
       <div class="text-sm" >{{ getFriendInfo.username }}</div>
       <div class="text-sm" >{{ getFriendInfo.email }}</div>
