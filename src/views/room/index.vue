@@ -59,7 +59,7 @@
 <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2 pt-0">
   <div class="flex-1">
     <div class="border-b border-gray-300 pb-2">群成员</div>
-    <div v-for="member in getMember" :key="member.user_id" class="text-sm flex justify-between items-center py-2" :class="{
+    <div v-for="member in getMember" :key="member.user_id" class="text-sm flex justify-between items-center py-1" :class="{
           'text-rose-400': member.user_id === userStore.userInfo.id,
         }">
       <span>{{member.user_info.username}}</span>
@@ -68,7 +68,7 @@
   </div>
   <div class="flex-1">
     <div class="border-b border-gray-300 pb-2">群申请</div>
-    <div v-for="apply in applyList" class="text-sm flex justify-between items-center gap-2 py-2" >
+    <div v-for="apply in applyList" class="text-sm flex justify-between items-center gap-2 py-1" >
       <span class="text-rose-400 flex-1">{{apply.user_info.username}}</span>
       <template v-if="apply.handle_status">
         {{apply.status ? '已同意' : '已拒绝'}}
