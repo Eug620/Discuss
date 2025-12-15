@@ -66,7 +66,7 @@
       <span>{{getMemberOnline.has(member.user_id) ? '在线' : '离线'}}</span>
     </div>
   </div>
-  <div class="flex-1">
+  <div class="flex-1" v-if="applyList.length > 0">
     <div class="border-b border-gray-300 pb-2">群申请</div>
     <div v-for="apply in applyList" class="text-sm flex justify-between items-center gap-2 py-1" >
       <span class="text-rose-400 flex-1">{{apply.user_info.username}}</span>
