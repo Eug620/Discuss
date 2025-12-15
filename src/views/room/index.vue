@@ -6,76 +6,81 @@
               {{ getRoomInfo.name }}
             </div>
         </div>
-        <div class="w-full border-b border-gray-300 py-2" v-if="applyList.length > 0">
-          <div class="" v-for="apply in applyList">
-              {{apply.user_info.username}} 申请加入房间
 
-              <template v-if="apply.handle_status">
-                {{apply.status ? '已同意' : '已拒绝'}}
-              </template>
-              <template v-else>
-                <button  @click="handleHandleApply(apply, true)">同意</button>
-                <button  @click="handleHandleApply(apply, false)">拒绝</button>
-              </template>
-          </div>
-        </div>
-
-        <div class="w-full h-full p-4">
-                <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2" :style="{
+<div class="w-full h-full p-4">
+  <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2" :style="{
             textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left',
            }">
-            <div class="flex mb-1 items-center ">
-                <div class="px-2 text-sm" v-if="message.sender !== userStore.userInfo.id" >
-                  [{{getUserInfo(message.sender)}}]
-                </div>
-                <div class="flex-1"> 
-                  <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative text-sm">
-                    <span>
-                      {{ message.content }}
-                    </span>
+    <div class="flex mb-1 items-center ">
+      <div class="px-2 text-sm" v-if="message.sender !== userStore.userInfo.id">
+        [{{getUserInfo(message.sender)}}]
+      </div>
+      <div class="flex-1">
+        <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative text-sm">
+          <span>
+            {{ message.content }}
+          </span>
 
-                    <div v-if="message.sender === route.params.id" class="absolute top-2 -left-2 w-0 h-0 
+          <div v-if="message.sender === route.params.id" class="absolute top-2 -left-2 w-0 h-0 
                       border-t-8 border-t-transparent
                       border-r-8 border-r-gray-300
                       border-b-8 border-b-transparent">
-                    </div>
+          </div>
 
-                    <div v-else class="absolute top-2 -right-2 w-0 h-0 
+          <div v-else class="absolute top-2 -right-2 w-0 h-0 
                       border-t-8 border-t-transparent
                       border-l-8 border-l-gray-300
                       border-b-8 border-b-transparent">
-                    </div>
-                  </div>
-                </div>
-                <div class="px-2 text-sm" v-if="message.sender === userStore.userInfo.id" >
-                  [{{ userStore.userInfo.username}}]
-                </div>
-            </div>
-            <div class="text-xs text-gray-700">
-                {{ new Date(message.timestamp).toLocaleString() }}
-            </div>
-           </div>
-        </div>
-        <div class="w-full h-100 border-t border-gray-300 p-4 relative">
-            <textarea id="story" name="story" placeholder="Type your message..." v-model.trim="story" rows="5" cols="33" class="w-full h-full ">
-            </textarea>
-            <button class="absolute bottom-12 right-12 cursor-pointer" @click="handleSend">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-              </svg>
-            </button>
+          </div>
         </div>
       </div>
-      <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2 pt-0">
-        <div class="border-b border-gray-300 pb-2">群成员</div>
-        <div v-for="member in getMember" :key="member.user_id" class="text-sm flex justify-between items-center" :class="{
-          'text-rose-400': member.user_id === userStore.userInfo.id,
-        }">
-          <span>{{member.user_info.username}}</span>
-          <span>{{getMemberOnline.has(member.user_id) ? '在线' : '离线'}}</span>
-        </div>
+      <div class="px-2 text-sm" v-if="message.sender === userStore.userInfo.id">
+        [{{ userStore.userInfo.username}}]
       </div>
     </div>
+    <div class="text-xs text-gray-700">
+      {{ new Date(message.timestamp).toLocaleString() }}
+    </div>
+  </div>
+</div>
+<div class="w-full h-100 border-t border-gray-300 p-4 relative">
+  <textarea id="story" name="story" placeholder="Type your message..." v-model.trim="story" rows="5" cols="33"
+    class="w-full h-full ">
+  </textarea>
+  <button class="absolute bottom-12 right-12 cursor-pointer" @click="handleSend">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+      class="size-6">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+    </svg>
+  </button>
+</div>
+</div>
+<div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2 pt-0">
+  <div class="flex-1">
+    <div class="border-b border-gray-300 pb-2">群成员</div>
+    <div v-for="member in getMember" :key="member.user_id" class="text-sm flex justify-between items-center py-2" :class="{
+          'text-rose-400': member.user_id === userStore.userInfo.id,
+        }">
+      <span>{{member.user_info.username}}</span>
+      <span>{{getMemberOnline.has(member.user_id) ? '在线' : '离线'}}</span>
+    </div>
+  </div>
+  <div class="flex-1">
+    <div class="border-b border-gray-300 pb-2">群申请</div>
+    <div v-for="apply in applyList" class="text-sm flex justify-between items-center gap-2 py-2" >
+      <span class="text-rose-400 flex-1">{{apply.user_info.username}}</span>
+      <template v-if="apply.handle_status">
+        {{apply.status ? '已同意' : '已拒绝'}}
+      </template>
+<template v-else>
+  <button @click="handleHandleApply(apply, true)">同意</button>
+  <button @click="handleHandleApply(apply, false)">拒绝</button>
+</template>
+</div>
+</div>
+</div>
+</div>
 </template>
 <script setup lang="ts">
 import { useSocketStore } from "@/store/modules/socket";
@@ -103,48 +108,50 @@ const getMember = computed(() => {
 });
 // 获取房间成员在线状态
 const getMemberOnline = computed(() => {
-  return socketStore.roomMemberOnlineMap.get(route.params.id as string) || new Set();
+  return (
+    socketStore.roomMemberOnlineMap.get(route.params.id as string) || new Set()
+  );
 });
 // 获取用户信息
 const getUserInfo = (user_id: string) => {
-  return getMember.value.find((item: any) => item.user_id === user_id)?.user_info?.username;
-}
+  return getMember.value.find((item: any) => item.user_id === user_id)
+    ?.user_info?.username;
+};
 // 获取房间信息
 const getRoomInfo = computed(() => {
-  return roomStore.getRoomMap[route.params.id as string]?.room_info || {}
-})
-
+  return roomStore.getRoomMap[route.params.id as string]?.room_info || {};
+});
 
 // 监听路由变化
-const applyList = ref([])
-watch(() => route.params.id, (room_id) => {
-  handleApplyRoom()
-})
+const applyList = ref([]);
+watch(
+  () => route.params.id,
+  (room_id) => {
+    handleApplyRoom();
+  }
+);
 
 function handleApplyRoom() {
   if (!roomStore.roomsMine.find((item: any) => item.id === route.params.id)) {
-    return applyList.value = []
+    return (applyList.value = []);
   }
   ServerApi.getApplyRoom(route.params.id as string).then((res: any) => {
-    applyList.value = res.data || []
-  })
+    applyList.value = res.data || [];
+  });
 }
-handleApplyRoom()
+handleApplyRoom();
 
 // 处理申请
 function handleHandleApply(apply: any, status: boolean) {
-
   ServerApi.handleApply({
     id: apply.id,
-    status
+    status,
   }).then((res: any) => {
     if (res.code === 200) {
-      handleApplyRoom()
+      handleApplyRoom();
     }
-  })
+  });
 }
-
-
 
 // 发送消息
 const handleSend = () => {
