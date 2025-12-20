@@ -17,12 +17,12 @@
       </div>
       <div class="flex-1">
         <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative text-sm">
-          <img v-if="message.type === 'image'" :src="message.content" alt="" class="h-24 rounded-md">
+          <img v-if="message.type === 'image'" :src="message.content" alt=""  @click="handlePreviewImage(message.content)" class="h-24 rounded-md">
           <span v-else>
             {{ message.content }}
           </span>
 
-          <div v-if="message.sender === route.params.id" class="absolute top-2 -left-2 w-0 h-0 
+          <div v-if="message.sender !== userStore.userInfo.id" class="absolute top-2 -left-2 w-0 h-0 
                       border-t-8 border-t-transparent
                       border-r-8 border-r-gray-300
                       border-b-8 border-b-transparent">
@@ -188,6 +188,12 @@ onMounted(() => {
     };
   });
 });
+
+const handlePreviewImage = (url: string) => {
+  const win = window.open();
+  win?.document.write(`<img src="${url}" style="max-width: 100%; height: auto;">`);
+  win?.document.write(`<style rel="stylesheet" >*{margin: 0; padding: 0; text-align: center;}</style>`);
+}
 </script>
 <style lang="">
 </style>

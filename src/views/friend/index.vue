@@ -28,7 +28,7 @@
             信息： -->
             <div class="mb-1 ">
               <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative">
-                <img v-if="message.type === 'image'" :src="message.content" alt="" class="h-24 rounded-md">
+                <img v-if="message.type === 'image'" :src="message.content" alt="" @click="handlePreviewImage(message.content)" class="h-24 rounded-md">
                 <span v-else>
                   {{ message.content }}
                 </span>
@@ -133,6 +133,12 @@ onMounted(() => {
     }
   })
 })
+
+const handlePreviewImage = (url: string) => {
+  const win = window.open();
+  win?.document.write(`<img src="${url}" style="max-width: 100%; height: auto;">`);
+  win?.document.write(`<style rel="stylesheet" >*{margin: 0; padding: 0; text-align: center;}</style>`);
+}
 </script>
 <style lang="">
 </style>
