@@ -14,7 +14,7 @@
                       {{ new Date(message.timestamp).toLocaleString() }}
                   </div>
                   <div class="flex mb-1 items-start">
-                      <div class="px-2 text-sm py-1" v-if="message.sender !== userStore.userInfo.id">
+                      <div class="px-2 text-sm py-1 border border-transparent" v-if="message.sender !== userStore.userInfo.id">
                           [{{ getUserInfo(message.sender) }}]
                       </div>
                       <div class="flex-1">
@@ -32,7 +32,7 @@
                               </div>
                           </div>
                       </div>
-                      <div class="px-2 text-sm py-1" v-if="message.sender === userStore.userInfo.id">
+                      <div class="px-2 text-sm py-1 border border-transparent" v-if="message.sender === userStore.userInfo.id">
                           [{{ userStore.userInfo.username }}]
                       </div>
                   </div>
