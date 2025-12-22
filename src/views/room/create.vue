@@ -19,25 +19,28 @@
             stroke="currentColor" class="size-6 cursor-pointer">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
-
-
     </div>
 </template>
 <script lang="ts" setup>
 import { reactive } from "vue";
 import ServerApi from "@/api";
-
+import { useRoomStore } from "@/store/modules/room";
+const roomStore = useRoomStore()
 const room = reactive({
     name: '',
     description: ''
 })
 
 const handleCreate = () => {
+    if (!room.name || !room.description) return
     ServerApi.CreateRoom(room).then((res: any) => {
         if (res.code == 200) {
             room.description = ''
             room.name = ''
+            roomStore.getRooms()
         }
+    }).catch((err: any) => {
+        console.log(err)
     })
 }
 </script>

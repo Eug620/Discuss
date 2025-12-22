@@ -39,12 +39,20 @@ export const useRoomStore = defineStore('room', {
 
     },
     actions: {
+        // 获取我加入的房间及房间成员
         getRooms() {
+            this.getRoomsMine()
+            this.getRoomAll()
+        },
+        // 获取我创建的房间
+        getRoomsMine() {
             ServerApi.GetRoomMine().then((res:any) => {
                 this.roomsMine = res.data.list || []
             })
+        },
+        // 获取我加入的所有房间及房间成员
+        getRoomAll() {
             const userinfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
-
             ServerApi.GetMemberInfo({
                 user_id: userinfo.id 
             }).then((res:any) => {
@@ -54,16 +62,21 @@ export const useRoomStore = defineStore('room', {
                     useSocketStore().socket?.emit('join', room.room_id)
 
                     // 获取房间成员
-                    ServerApi.GetMemberInfo({
-                        room_id: room.room_id,
-                    }).then((res: any) => {
-                        if (res.code === 200) {
-                            
-                            useSocketStore().roomMemberMap.set(room.room_id, res.data || [])
-                        }
-                    });
+                    this.getRoomMember(room.room_id)
                 })
             })
+        },
+        // 获取房间成员
+        getRoomMember(room_id: string) {
+            // 获取房间成员
+            ServerApi.GetMemberInfo({
+                room_id,
+            }).then((res: any) => {
+                if (res.code === 200) {
+                    
+                    useSocketStore().roomMemberMap.set(room_id, res.data || [])
+                }
+            });
         }
     }
 })

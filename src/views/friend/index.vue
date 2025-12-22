@@ -17,15 +17,9 @@
             </div>
         </div>
         <div class="w-full h-full p-4 flex-1 overflow-y-auto">
-            <!-- {{user}} -->
            <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2" :style="{
             textAlign: message.sender === route.params.id ? 'left' : 'right',
            }">
-            <!-- 发送人：
-            {{ message.sender }} 
-             接收人：
-            {{ message.receiver }} 
-            信息： -->
             <div class="mb-1 ">
               <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative">
                 <img v-if="message.type === 'image'" :src="message.content" alt="" @click="handlePreviewImage(message.content)" class="h-24 rounded-md">
@@ -92,7 +86,6 @@ const friendStore = useFriendStore();
 
 const story = ref("");
 const route = useRoute();
-// const user = JSON.parse(localStorage.getItem("userInfo") || "{}");
 
 const getHistory = computed(() => {
   return socketStore.userMessageMap.get(route.params.id as string) || [];

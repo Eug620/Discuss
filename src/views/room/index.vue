@@ -153,6 +153,8 @@ function handleHandleApply(apply: any, status: boolean) {
   }).then((res: any) => {
     if (res.code === 200) {
       handleApplyRoom();
+      // 同意申请后，刷新获取房间成员
+      status && roomStore.getRoomMember(route.params.id as string)
     }
   });
 }
