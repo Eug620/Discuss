@@ -26,7 +26,7 @@ router.beforeEach(async (to, from, next: Function) => {
         NProgress.start();
     }
 
-    // console.log('[Router]:beforeEach', to.name, from.name);
+    console.log('[Router]:beforeEach', to.name, from.name);
     if (localStorage.getItem('token')) { // 已登陆
         if (!menuStore.isLoad) { // 已登陆-未加载路由
             let asyncRoutes: any = await menuStore.GenerateRoutes()
@@ -59,10 +59,10 @@ router.beforeEach(async (to, from, next: Function) => {
 })
 
 router.afterEach(_ => {
-    // console.log('[Router]:afterEach');
+    console.log('[Router]:afterEach');
     NProgress.done();
 })
-// router.isReady().then(res => {
-//     console.log('[Router]:isReady');
-// })
+router.isReady().then(res => {
+    console.log('[Router]:isReady');
+})
 export default router
