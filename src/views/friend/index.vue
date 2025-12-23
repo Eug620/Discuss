@@ -21,6 +21,9 @@
             textAlign: message.sender === route.params.id ? 'left' : 'right',
            }">
             <div class="mb-1 ">
+              <div class="text-xs text-gray-700" >
+                {{ new Date(message.timestamp).toLocaleString() }}
+              </div>
               <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative">
                 <img v-if="message.type === 'image'" :src="message.content" alt="" @click="handlePreviewImage(message.content)" class="h-24 rounded-md">
                 <span v-else class="whitespace-pre-wrap">
@@ -40,9 +43,7 @@
                 </div>
               </div>
             </div>
-            <div class="text-xs text-gray-700" >
-                {{ new Date(message.timestamp).toLocaleString() }}
-            </div>
+
            </div>
         </div>
         <div class="w-full h-60 border-t border-gray-300 p-4 relative">
