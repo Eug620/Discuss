@@ -1,6 +1,6 @@
 <template lang="">
     <div class="apply px-2 flex gap-4 h-full">
-      <div class="flex-1 border border-gray-300">
+      <div class="flex-1 border-l border-r border-gray-300">
         <div class="border-b border-gray-300 text-center py-2">待处理申请</div>
         <div v-if="applyStore.pendingApplies.length > 0" class="p-2">
             <div v-for="item in applyStore.pendingApplies" :key="item.id" class="flex justify-around py-2 hover:bg-gray-300">
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="flex-1 border border-gray-300">
+      <div class="flex-1 border-l border-r border-gray-300">
           <div class="border-b border-gray-300 text-center py-2">我发起的所有申请</div>
           <div v-if="applyStore.applies.length > 0" class="p-2">
             <div v-for="item in applyStore.applies" :key="item.id" class="flex gap-10 py-2 hover:bg-gray-300">
