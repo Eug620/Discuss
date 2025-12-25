@@ -10,8 +10,14 @@
           <div class="w-full h-full p-4">
               <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2"
                   :style="{ textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left', }">
-                  <div class="text-xs text-gray-700">
-                      {{ dayjs(message.timestamp).fromNow() }}
+                  <div class="text-xs text-gray-700 py-1">
+                    <span v-if="message.type && message.sender !== route.params.id" class="px-2">
+                      {{ formatFileSize(message.size) }}
+                    </span>
+                    {{ dayjs(message.timestamp).fromNow() }}
+                    <span v-if="message.type && message.sender === route.params.id" class="px-2">
+                      {{ formatFileSize(message.size) }}
+                    </span>
                   </div>
                   <div class="flex mb-1 items-start">
                       <div class="px-2 text-sm py-1 border border-transparent" v-if="message.sender !== userStore.userInfo.id">
@@ -91,6 +97,7 @@ import ServerApi from "@/api";
 import dayjs from "@/plugin/dayjs";
 import serverApi from "@/api";
 import { vEnter } from "@/directives/vEnter";
+import { formatFileSize } from "@/utils/index";
 
 const VITE_APP_API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL
 

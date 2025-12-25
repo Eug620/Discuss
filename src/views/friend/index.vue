@@ -21,8 +21,14 @@
             textAlign: message.sender === route.params.id ? 'left' : 'right',
            }">
             <div class="mb-1 ">
-              <div class="text-xs text-gray-700" >
+              <div class="text-xs text-gray-700 py-1" >
+                <span v-if="message.type && message.sender !== route.params.id" class="px-2">
+                  {{ formatFileSize(message.size) }}
+                </span>
                 {{ dayjs(message.timestamp).fromNow() }}
+                <span v-if="message.type && message.sender === route.params.id" class="px-2">
+                  {{ formatFileSize(message.size) }}
+                </span>
               </div>
               <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative">
                 <img v-if="message.type === 'image'" :src="`${VITE_APP_API_BASE_URL}${message.content}`" alt="" @click="handlePreviewImage(message.content)" class="h-24 rounded-md">
@@ -79,6 +85,7 @@ import { Socket } from "socket.io-client";
 import dayjs from "@/plugin/dayjs";
 import serverApi from "@/api";
 import { vEnter } from "@/directives/vEnter";
+import { formatFileSize } from "@/utils/index";
 
 const VITE_APP_API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL
 
