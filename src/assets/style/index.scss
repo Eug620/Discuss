@@ -190,3 +190,13 @@ textarea {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.3);
 }
+
+// /* 或者使用属性选择器 */
+img[alt] {
+  font-size: 0.75rem; /* 设置 alt 文本的字体大小 */
+  color: #666; /* 设置 alt 文本颜色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.25rem ;
+}
