@@ -16,7 +16,7 @@
               {{ getFriendInfo.username }} 
             </div>
         </div>
-        <div class="w-full h-full p-4 flex-1 overflow-y-auto">
+        <div class="w-full h-full p-4 flex-1 overflow-y-auto relative" id="messageContainer">
            <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2" :style="{
             textAlign: message.sender === route.params.id ? 'left' : 'right',
            }">
@@ -88,13 +88,13 @@
 <script setup lang="ts">
 import { useSocketStore } from "@/store/modules/socket";
 import { useFriendStore } from "@/store/modules/friend";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, nextTick, watch } from "vue";
 import { useRoute } from "vue-router";
 import { Socket } from "socket.io-client";
 import dayjs from "@/plugin/dayjs";
 import serverApi from "@/api";
 import { vEnter } from "@/directives/vEnter";
-import { formatFileSize } from "@/utils/index";
+import { formatFileSize, scrollToBottom } from "@/utils/index";
 
 const VITE_APP_API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL
 
@@ -165,7 +165,16 @@ onMounted(() => {
       }
     })
   })
+
+  scrollToBottom()
 })
+
+// 自动滚到最新消息
+watch(
+  () => getHistory.value,
+  () => {scrollToBottom()},
+  { deep: true }
+)
 
 const handlePreviewImage = (url: string) => {
   window.open(`${VITE_APP_API_BASE_URL}${url}`);

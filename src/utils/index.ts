@@ -1,3 +1,4 @@
+import { nextTick } from 'vue';
 /**
  * 文件大小格式化选项
  */
@@ -36,4 +37,15 @@ function formatFileSize(bytes: number, options: FormatOptions = {}): string {
   return `${size}${space ? ' ' : ''}${sizes[i]}`;
 }
 
-export { formatFileSize, type FormatOptions };
+
+ function scrollToBottom() {
+    nextTick(() =>{
+      console.log('执行滚动')
+      document.getElementById('messageContainer')?.lastElementChild?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'end' 
+      });
+    })
+  }
+
+export { formatFileSize, type FormatOptions, scrollToBottom };

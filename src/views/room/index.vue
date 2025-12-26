@@ -7,7 +7,7 @@
               </div>
           </div>
 
-          <div class="w-full h-full p-4">
+          <div class="w-full h-full p-4 flex-1 overflow-y-auto" id="messageContainer">
               <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2"
                   :style="{ textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left', }">
                   <div class="text-xs text-gray-700 py-1">
@@ -46,7 +46,7 @@
                   
               </div>
           </div>
-          <div class="w-full h-100 border-t border-gray-300 p-4 relative">
+          <div class="w-full h-60 border-t border-gray-300 p-4 relative">
               <textarea id="story" name="story" placeholder="Type your message..." v-enter="handleSend" v-model.trim="story" rows="5"
                   cols="33" class="w-full h-full "></textarea>
               <button class="absolute bottom-12 right-12 cursor-pointer" @click="handleSendImage">
@@ -83,23 +83,23 @@
                   <template v-if="apply.handle_status">
                       {{ apply.status ? '已同意' : '已拒绝' }}
                   </template>
-                  <template v-else>
+<template v-else>
                       <button @click="handleHandleApply(apply, true)">同意</button>
                       <button @click="handleHandleApply(apply, false)">拒绝</button>
                   </template>
-              </div>
-          </div>
-      </div>
-      <input class="hidden" id="chooseImage" type="file" accept="image/*">
-      <input class="hidden" id="chooseFile" type="file" accept="*">
+</div>
+</div>
+</div>
+<input class="hidden" id="chooseImage" type="file" accept="image/*">
+<input class="hidden" id="chooseFile" type="file" accept="*">
 
-  </div>
+</div>
 </template>
 <script setup lang="ts">
 import { useSocketStore } from "@/store/modules/socket";
 import { useUserStore } from "@/store/modules/user";
 import { useRoomStore } from "@/store/modules/room";
-import { ref, watch } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { Socket } from "socket.io-client";
 import { computed, onMounted } from "vue";
@@ -107,7 +107,7 @@ import ServerApi from "@/api";
 import dayjs from "@/plugin/dayjs";
 import serverApi from "@/api";
 import { vEnter } from "@/directives/vEnter";
-import { formatFileSize } from "@/utils/index";
+import { formatFileSize, scrollToBottom } from "@/utils/index";
 
 const VITE_APP_API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL
 
@@ -176,6 +176,7 @@ function handleHandleApply(apply: any, status: boolean) {
 
 // 发送消息
 const handleSend = () => {
+  if (!story.value) return;
   (socketStore.socket as Socket).emit("room", {
     room: route.params.id,
     content: story.value,
@@ -195,7 +196,7 @@ onMounted(() => {
     if (!file) return;
     const formData = new FormData()
     formData.append('file', file as Blob)
-    serverApi.UploadUser(formData).then((res:any) => {
+    serverApi.UploadUser(formData).then((res: any) => {
       if (res.code === 200) {
         (socketStore.socket as Socket).emit('room', {
           size: res.data.size,
@@ -211,7 +212,7 @@ onMounted(() => {
     if (!file) return;
     const formData = new FormData()
     formData.append('file', file as Blob)
-    serverApi.UploadUser(formData).then((res:any) => {
+    serverApi.UploadUser(formData).then((res: any) => {
       if (res.code === 200) {
         (socketStore.socket as Socket).emit('room', {
           size: res.data.size,
@@ -223,7 +224,16 @@ onMounted(() => {
       }
     })
   })
+
+  scrollToBottom()
 });
+
+// 自动滚到最新消息
+watch(
+  () => getHistory.value,
+  () => {scrollToBottom()},
+  { deep: true }
+)
 
 const handlePreviewImage = (url: string) => {
   window.open(`${VITE_APP_API_BASE_URL}${url}`);
