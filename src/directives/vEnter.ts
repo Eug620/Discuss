@@ -4,7 +4,6 @@ interface EnterEl extends HTMLElement {
 export const vEnter = {
   mounted(el: EnterEl, binding: any, vnode: any) {
     // 下面会介绍各个参数的细节
-    console.log(el, binding, vnode, this)
     el._eventHandler = function (event: KeyboardEvent) {
       if (event.key === 'Enter') {
         const isOnlyEnter = 

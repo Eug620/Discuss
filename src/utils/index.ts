@@ -40,7 +40,6 @@ function formatFileSize(bytes: number, options: FormatOptions = {}): string {
 
  function scrollToBottom() {
     nextTick(() =>{
-      console.log('执行滚动')
       document.getElementById('messageContainer')?.lastElementChild?.scrollIntoView({ 
         behavior: 'smooth', 
         block: 'end' 
