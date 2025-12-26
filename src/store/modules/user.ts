@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useSocketStore } from './socket'
 import { useFriendStore } from './friend'
+import { useDBStore } from './database'
 
 import { useRoomStore } from './room'
 import router from '@/router'
@@ -35,6 +36,7 @@ export const useUserStore = defineStore('user', {
             await useFriendStore().getFriends()
             await useSocketStore().initSocket()
             useRoomStore().getRooms()
+            useDBStore().initDB(this.userInfo.id as string)
         },
         logout() {
             this.isLogin = false;
@@ -54,6 +56,7 @@ export const useUserStore = defineStore('user', {
             this.isLogin && (await useFriendStore().getFriends())
             this.isLogin && (await useSocketStore().initSocket())
             this.isLogin && (useRoomStore().getRooms())
+            this.isLogin && (useDBStore().initDB(this.userInfo.id as string))
         },
 
 

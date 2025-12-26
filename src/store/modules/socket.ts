@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { io, Socket } from 'socket.io-client'
 import { useUserStore } from './user'
 import { useFriendStore } from './friend'
+import { useDBStore } from './database'
+
 export const useSocketStore = defineStore('socket', {
     state: () => ({
         socket: null as Socket | null,
@@ -28,11 +30,6 @@ export const useSocketStore = defineStore('socket', {
                 this.socket.on('connect', () => {
                     console.log('connect')
                     this.socket && this.socket.emit('init')
-
-                    const roomMessageMap = localStorage.getItem(`${userInfo.id}_roomMessageMap`)
-                    this.roomMessageMap = new Map(JSON.parse(roomMessageMap || '[]'))
-                    const userMessageMap = localStorage.getItem(`${userInfo.id}_userMessageMap`)
-                    this.userMessageMap = new Map(JSON.parse(userMessageMap || '[]'))
                     resolve(true)
                 })
                 this.socket.on('disconnect', () => {
@@ -53,8 +50,7 @@ export const useSocketStore = defineStore('socket', {
                     const messages = this.userMessageMap.get(data.sender) || []
                     messages.push(data)
                     this.userMessageMap.set(data.sender, messages)
-
-                    localStorage.setItem(`${userInfo.id}_userMessageMap`, JSON.stringify(Array.from(this.userMessageMap)))
+                    useDBStore().database?.setItem('User_Message', JSON.stringify(Array.from(this.userMessageMap)))
                 })
 
                 // 接收已发送回显信息
@@ -62,16 +58,14 @@ export const useSocketStore = defineStore('socket', {
                     const messages = this.userMessageMap.get(data.receiver) || []
                     messages.push(data)
                     this.userMessageMap.set(data.receiver, messages)
-
-                    localStorage.setItem(`${userInfo.id}_userMessageMap`, JSON.stringify(Array.from(this.userMessageMap)))
+                    useDBStore().database?.setItem('User_Message', JSON.stringify(Array.from(this.userMessageMap)))
                 })
 
                 this.socket.on('room', (data) => {
                     const messages = this.roomMessageMap.get(data.room) || []
                     messages.push(data)
                     this.roomMessageMap.set(data.room, messages)
-
-                    localStorage.setItem(`${userInfo.id}_roomMessageMap`, JSON.stringify(Array.from(this.roomMessageMap)))
+                    useDBStore().database?.setItem('Room_Message', JSON.stringify(Array.from(this.roomMessageMap)))
                 })
 
                 this.socket.on('online', (data) => {
