@@ -31,7 +31,8 @@
                 </span>
               </div>
               <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative">
-                <img v-if="message.type === 'image'" :src="`${VITE_APP_API_BASE_URL}${message.content}`" alt="" @click="handlePreviewImage(message.content)" class="h-24 rounded-md">
+                <img v-if="message.type === 'image'" :src="`${VITE_APP_API_BASE_URL}${message.content}`" alt="" @click="handlePreviewImage(message.content)" class="h-24 rounded-md"/>
+                <a v-else-if="message.type === 'file'" class="text-blue-600/75 no-underline hover:underline" :href="`${VITE_APP_API_BASE_URL}${message.content}`" alt="" target="_blank" >{{message.originalname}}</a>
                 <span v-else class="whitespace-pre-wrap">
                   {{ message.content }}
                 </span>
@@ -60,6 +61,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
               </svg>
             </button>
+
+            <button class="absolute bottom-12 right-24 cursor-pointer" @click="handleSendFile">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
+              </svg>
+            </button>
+
         </div>
     </div>
     <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2 pt-0">
@@ -73,6 +81,7 @@
     </div>
 
     <input class="hidden" id="chooseImage" type="file" accept="image/*">
+    <input class="hidden" id="chooseFile" type="file" accept="*">
 
   </div>
 </template>
@@ -119,6 +128,9 @@ const handleSend = () => {
 const handleSendImage = () => {
   document.getElementById('chooseImage')?.click()
 };
+const handleSendFile = () => {
+  document.getElementById('chooseFile')?.click()
+};
 onMounted(() => {
   document.getElementById('chooseImage')?.addEventListener('change', (e) => {
     const file = (e.target as HTMLInputElement).files?.[0]
@@ -132,6 +144,23 @@ onMounted(() => {
           sender: route.params.id,
           content: `/${res.data.path}`,
           type: 'image'
+        })
+      }
+    })
+  })
+  document.getElementById('chooseFile')?.addEventListener('change', (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0]
+    if (!file) return;
+    const formData = new FormData()
+    formData.append('file', file as Blob)
+    serverApi.UploadUser(formData).then((res:any) => {
+      if (res.code === 200) {
+        (socketStore.socket as Socket).emit('user', {
+          size: res.data.size,
+          sender: route.params.id,
+          originalname: res.data.originalname,
+          content: `/${res.data.path}`,
+          type: 'file'
         })
       }
     })
