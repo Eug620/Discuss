@@ -70,7 +70,7 @@
               <div class="border-b border-gray-300 pb-2">群成员</div>
               <div v-for="member in getMember" :key="member.user_id"
                   class="text-sm flex justify-between items-center py-1" :class="{
-                      'text-rose-400': member.user_id === userStore.userInfo.id,
+                      'underline underline-offset-2': member.user_id === userStore.userInfo.id,
                   }">
                   <span>{{ member.user_info.username }}</span>
                   <span>{{ getMemberOnline.has(member.user_id) ? '在线' : '离线' }}</span>
@@ -83,17 +83,16 @@
                   <template v-if="apply.handle_status">
                       {{ apply.status ? '已同意' : '已拒绝' }}
                   </template>
-<template v-else>
-                      <button @click="handleHandleApply(apply, true)">同意</button>
-                      <button @click="handleHandleApply(apply, false)">拒绝</button>
+                  <template v-else>
+                    <button @click="handleHandleApply(apply, true)">同意</button>
+                    <button @click="handleHandleApply(apply, false)">拒绝</button>
                   </template>
-</div>
-</div>
-</div>
-<input class="hidden" id="chooseImage" type="file" accept="image/*">
-<input class="hidden" id="chooseFile" type="file" accept="*">
-
-</div>
+              </div>
+          </div>  
+    </div>
+    <input class="hidden" id="chooseImage" type="file" accept="image/*">
+    <input class="hidden" id="chooseFile" type="file" accept="*">
+  </div>
 </template>
 <script setup lang="ts">
 import { useSocketStore } from "@/store/modules/socket";
@@ -109,7 +108,7 @@ import serverApi from "@/api";
 import { vEnter } from "@/directives/vEnter";
 import { formatFileSize, scrollToBottom } from "@/utils/index";
 
-const VITE_APP_API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL
+const VITE_APP_API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
 const socketStore = useSocketStore();
 const userStore = useUserStore();
@@ -169,7 +168,7 @@ function handleHandleApply(apply: any, status: boolean) {
     if (res.code === 200) {
       handleApplyRoom();
       // 同意申请后，刷新获取房间成员
-      status && roomStore.getRoomMember(route.params.id as string)
+      status && roomStore.getRoomMember(route.params.id as string);
     }
   });
 }
@@ -188,52 +187,54 @@ const handleSendImage = () => {
   document.getElementById("chooseImage")?.click();
 };
 const handleSendFile = () => {
-  document.getElementById('chooseFile')?.click()
+  document.getElementById("chooseFile")?.click();
 };
 onMounted(() => {
   document.getElementById("chooseImage")?.addEventListener("change", (e) => {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
-    const formData = new FormData()
-    formData.append('file', file as Blob)
+    const formData = new FormData();
+    formData.append("file", file as Blob);
     serverApi.UploadUser(formData).then((res: any) => {
       if (res.code === 200) {
-        (socketStore.socket as Socket).emit('room', {
+        (socketStore.socket as Socket).emit("room", {
           size: res.data.size,
           room: route.params.id,
           content: `/${res.data.path}`,
-          type: 'image'
-        })
+          type: "image",
+        });
       }
-    })
+    });
   });
   document.getElementById("chooseFile")?.addEventListener("change", (e) => {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
-    const formData = new FormData()
-    formData.append('file', file as Blob)
+    const formData = new FormData();
+    formData.append("file", file as Blob);
     serverApi.UploadUser(formData).then((res: any) => {
       if (res.code === 200) {
-        (socketStore.socket as Socket).emit('room', {
+        (socketStore.socket as Socket).emit("room", {
           size: res.data.size,
           room: route.params.id,
           content: `/${res.data.path}`,
-          type: 'file',
-          originalname: res.data.originalname
-        })
+          type: "file",
+          originalname: res.data.originalname,
+        });
       }
-    })
-  })
+    });
+  });
 
-  scrollToBottom()
+  scrollToBottom();
 });
 
 // 自动滚到最新消息
 watch(
   () => getHistory.value,
-  () => {scrollToBottom()},
+  () => {
+    scrollToBottom();
+  },
   { deep: true }
-)
+);
 
 const handlePreviewImage = (url: string) => {
   window.open(`${VITE_APP_API_BASE_URL}${url}`);

@@ -11,7 +11,7 @@
 <template >
     <div>
         <div class="flex justify-center items-center gap-2 p-2 text-xs">
-            <input type="text" placeholder="Enter user name" @keyup.enter="handleSearch" v-model.trim="username"
+            <input type="text" placeholder="输入用户名" @keyup.enter="handleSearch" v-model.trim="username"
                 class="w-[200px] rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center focus:outline-none" />
         </div>
 
