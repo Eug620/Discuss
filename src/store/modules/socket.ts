@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { io, Socket } from 'socket.io-client'
 import { useUserStore } from './user'
 import { useFriendStore } from './friend'
-import { useDBStore } from './database'
 
 export const useSocketStore = defineStore('socket', {
     state: () => ({
@@ -47,25 +46,25 @@ export const useSocketStore = defineStore('socket', {
 
                 // 接收用户消息
                 this.socket.on('user', (data) => {
-                    const messages = this.userMessageMap.get(data.sender) || []
+                    const senderMessages = this.userMessageMap.get(data.sender)
+                    const messages = senderMessages || []
                     messages.push(data)
-                    this.userMessageMap.set(data.sender, messages)
-                    useDBStore().database?.setItem('User_Message', JSON.stringify(Array.from(this.userMessageMap)))
+                    if (!senderMessages) this.userMessageMap.set(data.sender, messages)
                 })
 
                 // 接收已发送回显信息
                 this.socket.on('sender', (data) => {
-                    const messages = this.userMessageMap.get(data.receiver) || []
+                    const receiverMessages = this.userMessageMap.get(data.receiver)
+                    const messages = receiverMessages || []
                     messages.push(data)
-                    this.userMessageMap.set(data.receiver, messages)
-                    useDBStore().database?.setItem('User_Message', JSON.stringify(Array.from(this.userMessageMap)))
+                    if (!receiverMessages) this.userMessageMap.set(data.receiver, messages)
                 })
 
                 this.socket.on('room', (data) => {
-                    const messages = this.roomMessageMap.get(data.room) || []
+                    const roomMessages = this.roomMessageMap.get(data.room)
+                    const messages = roomMessages || []
                     messages.push(data)
-                    this.roomMessageMap.set(data.room, messages)
-                    useDBStore().database?.setItem('Room_Message', JSON.stringify(Array.from(this.roomMessageMap)))
+                    if (!roomMessages) this.roomMessageMap.set(data.room, messages)
                 })
 
                 this.socket.on('online', (data) => {
@@ -79,12 +78,11 @@ export const useSocketStore = defineStore('socket', {
 
                 // 初始化获取所有在线好友
                 this.socket.on('onlineFriends', (data) => {
-                    data.users.forEach((id:string) => {
+                    data.users.forEach((id: string) => {
                         useFriendStore().setFriendStatus(id, true)
                     })
                 })
             })
-            
 
         },
         disconnect() {
