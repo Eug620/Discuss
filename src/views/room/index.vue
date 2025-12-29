@@ -224,14 +224,14 @@ onMounted(() => {
     });
   });
 
-  scrollToBottom();
+  scrollToBottom('messageContainer');
 });
 
 // 自动滚到最新消息
 watch(
   () => getHistory.value,
   () => {
-    scrollToBottom();
+    scrollToBottom('messageContainer');
   },
   { deep: true }
 );

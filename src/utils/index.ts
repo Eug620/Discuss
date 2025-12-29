@@ -38,9 +38,9 @@ function formatFileSize(bytes: number, options: FormatOptions = {}): string {
 }
 
 
- function scrollToBottom() {
+ function scrollToBottom(id: string) {
     nextTick(() =>{
-      document.getElementById('messageContainer')?.lastElementChild?.scrollIntoView({ 
+      document.getElementById(id)?.lastElementChild?.scrollIntoView({ 
         behavior: 'smooth', 
         block: 'end' 
       });
