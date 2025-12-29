@@ -199,3 +199,14 @@ img[alt] {
   align-items: center;
   justify-content: center;
 }
+
+
+
+/* 整个页面默认不可选 */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: Arial, sans-serif;
+}
