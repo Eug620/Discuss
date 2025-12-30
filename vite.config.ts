@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
+    base: `${process.env.NODE_ENV === 'production' ? 'https://eug620.github.io/Discuss/' : '/'}`,
     plugins: [
       vue(),
       tailwindcss()
