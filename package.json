@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@opentiny/vue": "^3.27.0",
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
     "dayjs": "^1.11.19",

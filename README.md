@@ -1,105 +1,138 @@
 # Discuss
 
-一个基于 Vue 3 + TypeScript + Vite 的实时聊天应用，支持好友私聊和群组房间聊天功能。
+一个基于 Vue 3 + TypeScript + Vite 的现代实时聊天应用，支持好友私聊和群组房间聊天功能，采用 Socket.IO 实现双向实时通信。
 
-## 功能特性
+## ✨ 功能特性
 
-- **用户系统**
-  - 用户登录认证
-  - 个人信息管理
-  - 好友在线状态实时同步
+### 用户系统
+- 用户登录认证与权限管理
+- 个人信息管理与设置
+- Token 持久化存储
 
-- **好友聊天**
-  - 添加好友
-  - 搜索好友
-  - 一对一实时消息
-  - 消息历史记录本地存储
+### 好友聊天
+- 添加好友与好友搜索
+- 一对一实时消息推送
+- 消息历史记录本地持久化
+- 好友在线状态实时同步
 
-- **房间聊天**
-  - 创建聊天房间
-  - 搜索房间
-  - 多人实时群聊
-  - 房间成员在线状态显示
-  - 消息历史记录本地存储
+### 房间聊天
+- 创建和管理聊天房间
+- 房间搜索与加入
+- 多人实时群聊
+- 房间成员在线状态显示
+- 消息历史记录本地持久化
 
-- **申请管理**
-  - 好友申请处理
-  - 房间邀请管理
+### 申请管理
+- 好友申请处理（接受/拒绝）
+- 房间邀请管理
 
-## 技术栈
+## 🛠️ 技术栈
 
-### 前端框架
-- **Vue 3** - 渐进式 JavaScript 框架
-- **TypeScript** - JavaScript 的超集，提供类型安全
-- **Vite** - 下一代前端构建工具（使用 rolldown-vite）
+### 核心框架
+- **Vue 3.5** - 渐进式 JavaScript 框架，使用 Composition API
+- **TypeScript 5.9** - 提供类型安全和更好的开发体验
+- **Vite (rolldown-vite 7.1)** - 下一代前端构建工具，极速开发体验
 
 ### 状态管理与路由
-- **Pinia** - Vue 官方状态管理库
-- **Vue Router** - Vue 官方路由管理器
+- **Pinia 3.0** - Vue 官方状态管理库，替代 Vuex
+- **Vue Router 4.6** - 官方路由管理器，支持嵌套路由和路由守卫
 
 ### UI 与样式
-- **Tailwind CSS** - 实用优先的 CSS 框架
-- **Sass** - CSS 预处理器
-- **@opentiny/vue** - OpenTiny Vue 组件库
+- **Tailwind CSS 4.1** - 实用优先的 CSS 框架，快速构建现代 UI
+- **Sass 1.93** - CSS 预处理器，支持嵌套和模块化
 
 ### 网络与数据
-- **Axios** - HTTP 客户端
-- **Socket.IO Client** - WebSocket 客户端，实现实时通信
-- **LocalForage** - 更好的本地存储 API
+- **Axios 1.13** - HTTP 客户端，支持请求拦截和响应处理
+- **Socket.IO Client 4.8** - WebSocket 客户端，实现实时双向通信
+- **LocalForage 1.10** - 更好的本地存储 API，支持 IndexedDB/WebSQL
 
 ### 工具库
-- **Day.js** - 轻量级日期处理库
-- **Lodash-es** - JavaScript 实用工具库
-- **js-cookie** - Cookie 操作库
-- **NProgress** - 页面加载进度条
+- **Day.js 1.11** - 轻量级日期处理库，API 与 Moment.js 兼容
+- **Lodash-es 4.17** - JavaScript 实用工具库，ES Module 版本
+- **js-cookie 3.0** - Cookie 操作库
+- **NProgress 0.2** - 页面加载进度条
 
-## 项目结构
+## 📁 项目结构
 
 ```
 Discuss/
-├── public/                 # 静态资源
+├── public/                    # 静态资源
+│   ├── _headers              # Cloudflare Headers 配置
+│   ├── _redirects            # Cloudflare 重定向规则
+│   └── siam.svg              # SVG 图标
 ├── src/
-│   ├── api/               # API 接口
-│   │   ├── apply/         # 申请相关接口
-│   │   ├── friend/        # 好友相关接口
-│   │   ├── member/        # 成员相关接口
-│   │   ├── room/          # 房间相关接口
-│   │   └── user/          # 用户相关接口
-│   ├── assets/            # 资源文件
-│   │   └── style/         # 样式文件
-│   ├── components/        # 公共组件
-│   ├── directives/        # 自定义指令
-│   ├── layout/            # 布局组件
-│   ├── plugin/            # 插件配置
-│   │   ├── axios.ts       # Axios 配置
-│   │   └── dayjs.ts       # Dayjs 配置
-│   ├── router/            # 路由配置
-│   ├── settings/          # 项目设置
-│   ├── store/             # 状态管理
-│   │   └── modules/       # Pinia 模块
-│   ├── utils/             # 工具函数
-│   └── views/             # 页面视图
-│       ├── 404/           # 404 页面
-│       ├── apply/         # 申请页面
-│       ├── dashboard/     # 首页
-│       ├── friend/        # 好友相关页面
-│       ├── login/         # 登录页面
-│       ├── room/          # 房间相关页面
-│       └── setting/       # 设置页面
-├── .env                   # 开发环境变量
-├── .env.prod             # 生产环境变量
-├── index.html            # HTML 入口
-├── package.json          # 项目依赖
-├── tsconfig.json         # TypeScript 配置
-└── vite.config.ts        # Vite 配置
+│   ├── api/                  # API 接口模块
+│   │   ├── apply/            # 申请相关接口
+│   │   ├── friend/           # 好友相关接口
+│   │   ├── member/           # 成员相关接口
+│   │   ├── room/             # 房间相关接口
+│   │   └── user/             # 用户相关接口
+│   ├── assets/               # 资源文件
+│   │   └── style/            # 全局样式
+│   │       ├── index.scss    # 主样式文件
+│   │       └── taillwind.css # Tailwind CSS 入口
+│   ├── components/           # 公共组件
+│   │   ├── HelloWorld.vue    # 示例组件
+│   │   └── dialog/           # 对话框组件
+│   ├── directives/           # 自定义指令
+│   │   └── vEnter.ts         # 回车事件指令
+│   ├── layout/               # 布局组件
+│   │   └── index.vue         # 主布局
+│   ├── plugin/               # 插件配置
+│   │   ├── axios.ts          # Axios 实例配置
+│   │   └── dayjs.ts          # Dayjs 插件配置
+│   ├── router/               # 路由配置
+│   │   ├── index.ts          # 路由实例
+│   │   └── routes.ts         # 路由定义
+│   ├── settings/             # 项目设置
+│   │   └── index.ts          # 全局配置
+│   ├── store/                # 状态管理
+│   │   ├── index.ts          # Pinia 实例
+│   │   └── modules/          # Pinia 模块
+│   │       ├── apply.ts      # 申请状态
+│   │       ├── database.ts   # 数据库状态
+│   │       ├── friend.ts     # 好友状态
+│   │       ├── menu.ts       # 菜单状态
+│   │       ├── room.ts       # 房间状态
+│   │       ├── socket.ts     # Socket 状态
+│   │       └── user.ts       # 用户状态
+│   ├── utils/                # 工具函数
+│   │   └── index.ts          # 通用工具
+│   └── views/                # 页面视图
+│       ├── 404/              # 404 页面
+│       ├── apply/            # 申请管理页面
+│       ├── dashboard/        # 首页仪表板
+│       ├── friend/           # 好友模块
+│       │   ├── layout.vue    # 好友布局
+│       │   ├── search.vue    # 搜索好友
+│       │   └── index.vue     # 好友聊天
+│       ├── login/            # 登录页面
+│       ├── room/             # 房间模块
+│       │   ├── layout.vue    # 房间布局
+│       │   ├── search.vue    # 搜索房间
+│       │   ├── create.vue    # 创建房间
+│       │   └── index.vue     # 房间聊天
+│       └── setting/          # 设置页面
+├── .env                      # 开发环境变量
+├── .env.prod                # 生产环境变量
+├── .github/
+│   └── workflows/
+│       └── static.yml       # GitHub Pages 部署配置
+├── .gitignore               # Git 忽略文件
+├── index.html               # HTML 入口
+├── package.json             # 项目依赖配置
+├── tsconfig.json            # TypeScript 配置
+├── tsconfig.app.json        # 应用 TypeScript 配置
+├── tsconfig.node.json       # Node TypeScript 配置
+└── vite.config.ts           # Vite 配置
 ```
 
-## 快速开始
+## 🚀 快速开始
 
 ### 环境要求
 
-- Node.js >= 18
-- npm 或 pnpm
+- **Node.js** >= 18
+- **npm** 或 **pnpm**
 
 ### 安装依赖
 
@@ -109,7 +142,7 @@ npm install
 
 ### 配置环境变量
 
-复制 `.env` 文件并根据需要修改配置：
+复制 `.env` 文件并根据实际情况修改配置：
 
 ```env
 # API 基础路径
@@ -120,6 +153,12 @@ VITE_APP_API_BASE_URL=http://192.168.58.190:3000
 
 # WebSocket 请求地址
 VITE_APP_WS_BASE_URL=http://192.168.58.190:3001
+
+# 路由基础路径
+VITE_APP_BASE_URL=/
+
+# 应用标题
+VITE_APP_TITLE=dev
 ```
 
 ### 开发模式
@@ -136,61 +175,123 @@ npm run dev
 npm run build
 ```
 
+构建产物输出到 `dist` 目录。
+
 ### 预览构建
 
 ```bash
 npm run preview
 ```
 
-## 核心功能说明
+## 🔌 核心功能说明
 
 ### WebSocket 实时通信
 
-项目使用 Socket.IO 实现实时消息推送，支持以下事件：
+项目使用 Socket.IO 实现前后端实时双向通信，支持以下事件：
 
-- `connect` - 连接建立
-- `disconnect` - 连接断开
-- `user` - 接收用户消息
-- `sender` - 接收已发送消息回显
-- `room` - 接收房间消息
-- `online` - 房间成员在线状态更新
-- `status` - 好友状态更新
-- `onlineFriends` - 初始化在线好友列表
+| 事件 | 说明 |
+|------|------|
+| `connect` | WebSocket 连接建立 |
+| `disconnect` | WebSocket 连接断开 |
+| `exception` | 异常处理（触发登出） |
+| `user` | 接收好友发送的消息 |
+| `sender` | 接收已发送消息的回显 |
+| `room` | 接收房间消息 |
+| `online` | 房间成员在线状态更新 |
+| `status` | 好友状态更新 |
+| `onlineFriends` | 初始化获取所有在线好友列表 |
 
-### 本地存储
+### 本地存储策略
 
-使用 LocalForage 和 Pinia 实现消息历史记录的本地持久化存储，支持：
+使用 **LocalForage** 和 **Pinia** 实现消息历史记录的本地持久化：
 
-- 用户消息历史
-- 房间消息历史
-- 自动防抖保存（1秒延迟）
+- **User_Message** - 用户消息历史存储
+- **Room_Message** - 房间消息历史存储
+- 采用防抖机制（1秒延迟）避免频繁写入
+- 支持 IndexedDB/WebSQL，存储容量更大
 
 ### 路由结构
 
-- `/login` - 登录页面
-- `/dashboard` - 首页仪表板
-- `/friend` - 好友模块
-  - `/friend/dashboard` - 好友欢迎页
-  - `/friend/search` - 搜索好友
-  - `/friend/:id` - 与好友聊天
-- `/room` - 房间模块
-  - `/room/dashboard` - 房间欢迎页
-  - `/room/search` - 搜索房间
-  - `/room/create` - 创建房间
-  - `/room/:id` - 房间聊天
-- `/apply` - 申请管理
-- `/setting` - 设置页面
+| 路径 | 说明 | 认证 |
+|------|------|------|
+| `/login` | 登录页面 | 否 |
+| `/dashboard` | 首页仪表板 | 是 |
+| `/friend/dashboard` | 好友欢迎页 | 是 |
+| `/friend/search` | 搜索好友 | 是 |
+| `/friend/:id` | 与好友聊天 | 是 |
+| `/room/dashboard` | 房间欢迎页 | 是 |
+| `/room/search` | 搜索房间 | 是 |
+| `/room/create` | 创建房间 | 是 |
+| `/room/:id` | 房间聊天 | 是 |
+| `/apply` | 申请管理 | 是 |
+| `/setting` | 设置页面 | 是 |
 
-## 部署
+### API 模块
 
-项目配置为部署到 GitHub Pages，生产环境基础路径为：
+项目采用模块化的 API 设计，各模块职责清晰：
 
-```
-https://eug620.github.io/discuss/
-```
+- **api/user** - 用户登录、登出、信息获取
+- **api/friend** - 好友添加、搜索、列表获取
+- **api/member** - 成员管理
+- **api/room** - 房间创建、搜索、加入
+- **api/apply** - 申请处理（好友/房间）
 
-构建后的文件位于 `dist` 目录，可部署到任何静态文件服务器。
+### 状态管理
 
-## License
+使用 Pinia 管理应用状态，各模块独立管理：
+
+- **user** - 用户信息、Token、登录状态
+- **friend** - 好友列表、好友状态
+- **room** - 房间列表、房间信息
+- **socket** - WebSocket 连接、消息存储
+- **database** - LocalForage 数据库实例
+- **apply** - 申请列表
+- **menu** - 菜单状态
+
+## 📦 部署
+
+### GitHub Pages
+
+项目已配置 GitHub Pages 自动部署，推送代码到 `main` 分支后自动触发部署。
+
+部署地址：https://eug620.github.io/discuss/
+
+### 手动部署
+
+构建后的文件位于 `dist` 目录，可部署到任何静态文件服务器：
+
+- Nginx
+- Apache
+- Vercel
+- Netlify
+- Cloudflare Pages
+
+## 🔧 开发配置
+
+### Vite 配置
+
+- 使用 **rolldown-vite** 作为构建工具，性能更优
+- 开发服务器端口：8000
+- 自动打开浏览器
+- 配置 `/api` 代理到后端服务
+- 路径别名 `@` 指向 `src` 目录
+
+### TypeScript 配置
+
+- 严格模式开启
+- 支持 Vue SFC 类型检查
+- 路径别名类型提示
+
+### Tailwind CSS 配置
+
+- 使用 Tailwind CSS 4.x
+- 通过 Vite 插件集成
+- 支持任意值和现代 CSS 特性
+
+## 📄 License
 
 MIT
+
+## 🙏 致谢
+
+感谢所有开源项目的贡献者！
