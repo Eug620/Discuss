@@ -7,7 +7,7 @@ import { watch, onUnmounted } from 'vue'
 
 const userStore = useUserStore()
 const dbStore = useDBStore()
-const socketStore = useSocketStore()  
+const socketStore = useSocketStore()
 
 userStore.init()
 
@@ -22,10 +22,13 @@ userStore.init()
 onUnmounted(() => {
   // unsubscribe()
 })
-watch(() => [socketStore.userMessageMap, socketStore.roomMessageMap], debounce(([newUserMessageMap, newRoomMessageMap]) => {
+watch(() => [socketStore.userMessageMap], debounce(([newUserMessageMap]) => {
   dbStore.database?.setItem('User_Message', cloneDeep(newUserMessageMap))
+}, 1000), { deep: true })
+
+watch(() => [socketStore.roomMessageMap], debounce(([newRoomMessageMap]) => {
   dbStore.database?.setItem('Room_Message', cloneDeep(newRoomMessageMap))
-}, 1000),{ deep: true })
+}, 1000), { deep: true })
 
 
 </script>
