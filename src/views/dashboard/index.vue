@@ -1,6 +1,6 @@
 <template lang="">
-    <div class="dashboard p-2 flex flex-col items-center justify-center h-full text-2xl">
-        Welcome !
+    <div class="dashboard p-2 h-full">
+        <img src="/Tiananmen.svg" alt="Welcome Image"  class="h-[36vh] w-auto fixed right-[50vw] top-[50vh] translate-x-[50%] translate-y-[-50%]"/>
     </div>
 </template>
 <script setup lang="ts">
