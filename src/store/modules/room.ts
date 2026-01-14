@@ -58,9 +58,6 @@ export const useRoomStore = defineStore('room', {
             }).then((res:any) => {
                 this.rooms = res.data || []
                 this.rooms.forEach(room => {
-                    // 加入房间
-                    useSocketStore().socket?.emit('join', room.room_id)
-
                     // 获取房间成员
                     this.getRoomMember(room.room_id)
                 })

@@ -60,6 +60,7 @@ export const useSocketStore = defineStore('socket', {
                     if (!receiverMessages) this.userMessageMap.set(data.receiver, messages)
                 })
 
+                // 接收房间消息
                 this.socket.on('room', (data) => {
                     const roomMessages = this.roomMessageMap.get(data.room)
                     const messages = roomMessages || []
@@ -67,6 +68,7 @@ export const useSocketStore = defineStore('socket', {
                     if (!roomMessages) this.roomMessageMap.set(data.room, messages)
                 })
 
+                // 接收房间成员在线状态
                 this.socket.on('online', (data) => {
                     this.roomMemberOnlineMap.set(data.room, new Set(data.users || []))
                 })
