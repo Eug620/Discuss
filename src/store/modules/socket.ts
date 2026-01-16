@@ -19,7 +19,7 @@ export const useSocketStore = defineStore('socket', {
         initSocket() {
             const { userInfo } = useUserStore()
             return new Promise((resolve, reject) => {
-                this.socket = io(import.meta.env.VITE_APP_WS_BASE_URL, {
+                this.socket = io(import.meta.env.VITE_APP_API_BASE_URL, {
                     path: '/websocket',
                     transports: ['websocket'],
                     auth: {
