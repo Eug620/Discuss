@@ -8,17 +8,54 @@
  * 
  * Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
 -->
-<template >
-    <div class="flex flex-col items-center justify-center gap-4 h-full">
-        <input type="text" placeholder="输入房间名" v-model.trim="room.name"
-            class="w-1/2 rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center focus:outline-none" />
-        <input type="text" placeholder="输入房间描述" v-model.trim="room.description"
-            class="w-1/2 rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center focus:outline-none" />
+<template>
+    <div class="room-create p-6 bg-[#f6f8fa] min-h-full">
+        <div class="max-w-lg mx-auto">
+            <div class="bg-white rounded-md border border-[#d0d7de] p-6">
+                <h1 class="text-xl font-semibold text-[#24292f] mb-2">创建房间</h1>
+                <p class="text-[#6e7781] text-sm mb-6">创建一个新的聊天房间，邀请朋友一起交流</p>
 
-        <svg @click="handleCreate" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="size-6 cursor-pointer">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
+                <form @submit.prevent="handleCreate" class="space-y-4">
+                    <!-- 房间名 -->
+                    <div>
+                        <label class="block text-sm font-medium text-[#24292f] mb-2">
+                            房间名称 <span class="text-[#cf222e]">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            placeholder="请输入房间名称" 
+                            v-model.trim="room.name"
+                            class="w-full px-4 py-2 text-sm border border-[#d0d7de] rounded-md focus:outline-none focus:border-[#0969da] focus:ring-1 focus:ring-[#0969da] transition-colors"
+                            required
+                        />
+                    </div>
+
+                    <!-- 房间描述 -->
+                    <div>
+                        <label class="block text-sm font-medium text-[#24292f] mb-2">
+                            房间描述 <span class="text-[#cf222e]">*</span>
+                        </label>
+                        <textarea 
+                            placeholder="请输入房间描述" 
+                            v-model.trim="room.description"
+                            rows="4"
+                            class="w-full px-4 py-2 text-sm border border-[#d0d7de] rounded-md focus:outline-none focus:border-[#0969da] focus:ring-1 focus:ring-[#0969da] transition-colors resize-none"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <!-- 提交按钮 -->
+                    <div class="pt-4">
+                        <button 
+                            type="submit"
+                            class="w-full py-2 px-4 text-sm font-medium text-white bg-[#2da44e] border border-transparent rounded-md hover:bg-[#2c974b] transition-colors"
+                        >
+                            创建房间
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 <script lang="ts" setup>

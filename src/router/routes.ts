@@ -44,7 +44,7 @@ export const initRoutes = [
                     affix: true,
                     icon: 'IconUser'
                 },
-                component: () => import('@/views/dashboard/index.vue')
+                component: () => import('@/views/friend/dashboard.vue')
             },
             {
                 path: 'search',
@@ -100,7 +100,7 @@ export const initRoutes = [
                     affix: true,
                     icon: 'IconUser'
                 },
-                component: () => import('@/views/dashboard/index.vue')
+                component: () => import('@/views/room/dashboard.vue')
             },
             {
                 path: 'search',
