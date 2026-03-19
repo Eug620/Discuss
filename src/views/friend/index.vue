@@ -122,6 +122,7 @@ import dayjs from "@/plugin/dayjs";
 import serverApi from "@/api";
 import { vEnter } from "@/directives/vEnter";
 import { formatFileSize, scrollToBottom } from "@/utils/index";
+import { usePaste } from '@/hooks/paste'
 
 const VITE_APP_API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL
 
@@ -155,43 +156,53 @@ const handleSendImage = () => {
 const handleSendFile = () => {
   document.getElementById('chooseFile')?.click()
 };
+
+const uploadImage = (file:Blob) => {
+  const formData = new FormData()
+  formData.append('file', file as Blob)
+  serverApi.UploadUser(formData).then((res:any) => {
+    if (res.code === 200) {
+      (socketStore.socket as Socket).emit('user', {
+        size: res.data.size,
+        sender: route.params.id,
+        content: `/${res.data.path}`,
+        type: 'image'
+      })
+    }
+  })
+}
+const uploadFile = (file:Blob)=>{
+  const formData = new FormData()
+  formData.append('file', file as Blob)
+  serverApi.UploadUser(formData).then((res:any) => {
+    if (res.code === 200) {
+      (socketStore.socket as Socket).emit('user', {
+        size: res.data.size,
+        sender: route.params.id,
+        originalname: res.data.originalname,
+        content: `/${res.data.path}`,
+        type: 'file'
+      })
+    }
+  })
+}
 onMounted(() => {
   document.getElementById('chooseImage')?.addEventListener('change', (e) => {
     const file = (e.target as HTMLInputElement).files?.[0]
     if (!file) return;
-    const formData = new FormData()
-    formData.append('file', file as Blob)
-    serverApi.UploadUser(formData).then((res:any) => {
-      if (res.code === 200) {
-        (socketStore.socket as Socket).emit('user', {
-          size: res.data.size,
-          sender: route.params.id,
-          content: `/${res.data.path}`,
-          type: 'image'
-        })
-      }
-    })
+    uploadImage(file)
   })
   document.getElementById('chooseFile')?.addEventListener('change', (e) => {
     const file = (e.target as HTMLInputElement).files?.[0]
     if (!file) return;
-    const formData = new FormData()
-    formData.append('file', file as Blob)
-    serverApi.UploadUser(formData).then((res:any) => {
-      if (res.code === 200) {
-        (socketStore.socket as Socket).emit('user', {
-          size: res.data.size,
-          sender: route.params.id,
-          originalname: res.data.originalname,
-          content: `/${res.data.path}`,
-          type: 'file'
-        })
-      }
-    })
+    uploadFile(file)
   })
 
   scrollToBottom('messageContainer')
 })
+
+// 快捷上传图片及文件
+usePaste(uploadImage,uploadFile)
 
 // 自动滚到最新消息
 watch(
