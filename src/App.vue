@@ -5,6 +5,12 @@ import { useSocketStore } from '@/store/modules/socket'
 import { debounce, cloneDeep } from 'lodash-es'
 import { watch, onUnmounted } from 'vue'
 
+Notification.requestPermission().then(permission => {
+  if (permission === 'granted') {
+    // new Notification('标题', { body: '通知已授权' });
+  }
+});
+
 const userStore = useUserStore()
 const dbStore = useDBStore()
 const socketStore = useSocketStore()
