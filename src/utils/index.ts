@@ -83,4 +83,17 @@ function downloadJSON(data: Object, filename = 'data.json', indent = 2) {
   }
 }
 
-export { formatFileSize, type FormatOptions, scrollToBottom, downloadJSON };
+function updateTitle() {
+  let timer:any
+  let defaultTitle = document.title
+  
+  return function setTitle(title: string) {
+    timer && clearTimeout(timer)
+    document.title = title
+    timer = setTimeout(() => {
+      document.title = defaultTitle
+    }, 1000);
+  }
+}
+
+export { formatFileSize, type FormatOptions, scrollToBottom, downloadJSON, updateTitle };

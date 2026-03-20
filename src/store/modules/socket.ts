@@ -3,6 +3,9 @@ import { io, Socket } from 'socket.io-client'
 import { useUserStore } from './user'
 import { useFriendStore } from './friend'
 import { useRoomStore } from './room'
+import { updateTitle } from '@/utils'
+
+const setTitle = updateTitle()
 
 export const useSocketStore = defineStore('socket', {
     state: () => ({
@@ -51,7 +54,7 @@ export const useSocketStore = defineStore('socket', {
                     const messages = senderMessages || []
                     messages.push(data)
                     if (!senderMessages) this.userMessageMap.set(data.sender, messages)
-                    new Notification(`${useFriendStore().getFriendMap[data.sender]?.friend_info?.username}`, { body: `${data.content}` });
+                    setTitle(`[${useFriendStore().getFriendMap[data.sender]?.friend_info?.username}]:${data.content}`)
                 })
 
                 // 接收已发送回显信息
@@ -68,7 +71,7 @@ export const useSocketStore = defineStore('socket', {
                     const messages = roomMessages || []
                     messages.push(data)
                     if (!roomMessages) this.roomMessageMap.set(data.room, messages)
-                    new Notification(`${useRoomStore().getRoomMap[data.room]?.room_info?.name}`, { body: `${data.content}` });
+                    setTitle(`[${useRoomStore().getRoomMap[data.room]?.room_info?.name}]:${data.content}`)
                 })
 
                 // 接收房间成员在线状态
@@ -79,7 +82,7 @@ export const useSocketStore = defineStore('socket', {
                 // 接收好友状态更新
                 this.socket.on('status', (data) => {
                     useFriendStore().setFriendStatus(data.friend, data.status)
-                    new Notification(`${useFriendStore().getFriendMap[data.friend]?.friend_info?.username}`, { body: `${data.status ? '上线' : '离线'}` });
+                    setTitle(`[${useFriendStore().getFriendMap[data.friend]?.friend_info?.username}]-${data.status ? '上线' : '离线'}`)
                 })
 
                 // 初始化获取所有在线好友
