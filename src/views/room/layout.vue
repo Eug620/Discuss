@@ -19,7 +19,7 @@
 
         </div>
         <div v-for="room in getRooms" @click="handleRoomClick(room)" :key="room.id"
-              class="cursor-pointer p-2 hover:bg-gray-300" :class="{'bg-gray-300': paramsID === room.room_id}">{{ room.room_info.name }} </div>
+              class="cursor-pointer p-2 hover:bg-gray-300 truncate" :class="{'bg-gray-300': paramsID === room.room_id}">{{ room.room_info.name }} </div>
       </div>
       <div class="flex-auto p-2 animate__fadeIn animate__animated">
           <router-view></router-view>

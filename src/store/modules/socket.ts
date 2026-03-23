@@ -54,7 +54,7 @@ export const useSocketStore = defineStore('socket', {
                     const messages = senderMessages || []
                     messages.push(data)
                     if (!senderMessages) this.userMessageMap.set(data.sender, messages)
-                    setTitle(`[${useFriendStore().getFriendMap[data.sender]?.friend_info?.username}]:${data.content}`)
+                    setTitle(`${useFriendStore().getFriendMap[data.sender]?.friend_info?.username}:${data.content}`)
                 })
 
                 // 接收已发送回显信息
@@ -71,7 +71,7 @@ export const useSocketStore = defineStore('socket', {
                     const messages = roomMessages || []
                     messages.push(data)
                     if (!roomMessages) this.roomMessageMap.set(data.room, messages)
-                    setTitle(`[${useRoomStore().getRoomMap[data.room]?.room_info?.name}]:${data.content}`)
+                    setTitle(`${useRoomStore().getRoomMap[data.room]?.room_info?.name}:${data.content}`)
                 })
 
                 // 接收房间成员在线状态

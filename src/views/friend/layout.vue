@@ -26,7 +26,7 @@
           v-for="friend in getFriends" 
           @click="handleFriendClick(friend)" 
           :key="friend.id"
-          class="cursor-pointer p-2 hover:bg-gray-300 " 
+          class="cursor-pointer p-2 hover:bg-gray-300 truncate" 
           :class="{
             'bg-gray-300': paramsID === friend.friend_info.id, 
             'text-green-700': friendStore.getFriendMap[friend.friend_info.id]?.status

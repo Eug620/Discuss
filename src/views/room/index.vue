@@ -75,7 +75,7 @@
           <div class="flex-1">
               <div class="border-b border-gray-300 p-2 pl-0">群成员</div>
               <div v-for="member in getMember" :key="member.user_id"
-                  class="text-sm flex gap-1 items-center py-1" :class="{
+                  class="text-sm flex gap-1 items-center py-1 overflow-hidden" :class="{
                     'underline underline-offset-2': member.user_id === userStore.userInfo.id,
                     'text-green-700': getMemberOnline.has(member.user_id)
                   }">
@@ -89,13 +89,13 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                   </svg>
 
-                  <span class="flex gap-1 items-center">{{ member.user_info.username }}</span>
+                  <span class="flex-1 gap-1 items-center truncate">{{ member.user_info.username }}</span>
               </div>
           </div>
           <div class="flex-1" v-if="applyList.length > 0">
               <div class="border-b border-gray-300 pb-2">群申请</div>
               <div v-for="apply in applyList" class="text-sm flex justify-between items-center gap-2 py-1">
-                  <span class="text-rose-400 flex-1">{{ apply.user_info.username }}</span>
+                  <span class="text-rose-400 flex-1 truncate">{{ apply.user_info.username }}</span>
                   <template v-if="apply.handle_status">
                       {{ apply.status ? '已同意' : '已拒绝' }}
                   </template>
