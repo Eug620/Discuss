@@ -92,7 +92,7 @@ function updateTitle() {
     document.title = title
     timer = setTimeout(() => {
       document.title = defaultTitle
-    }, 1000);
+    }, 10000);
   }
 }
 
