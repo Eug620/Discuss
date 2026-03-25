@@ -39,10 +39,10 @@
               <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative">
                 <img v-if="message.type === 'image'" :src="`${VITE_APP_API_BASE_URL}${message.content}`" alt="图片已失效" @click="handlePreviewImage(message.content)" class="h-24 rounded-md cursor-pointer"/>
                 <template v-else-if="message.type === 'file'">
-                  <video class="h-58 rounded-md cursor-pointer" autoplay="autoplay" controls v-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['mp4','avi','mov','mkv','flv','wmv','webm'])">
+                  <video class="max-h-58 rounded-md cursor-pointer" controls v-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['mp4','webm'])">
                     <source :src="`${VITE_APP_API_BASE_URL}${message.content}`">
                   </video>
-                  <audio autoplay="autoplay" controls v-else-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['mp3','wav','flac','aac','m4a','ape'])">
+                  <audio controls v-else-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['mp3','wav'])">
                     <source :src="`${VITE_APP_API_BASE_URL}${message.content}`">
                   </audio>
                   <img v-else-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['svg','jpg','jpeg','png','gif','bmp','webp'])" :src="`${VITE_APP_API_BASE_URL}${message.content}`" alt="图片已失效" @click="handlePreviewImage(message.content)" class="h-24 rounded-md cursor-pointer"/>
