@@ -96,4 +96,37 @@ function updateTitle() {
   }
 }
 
-export { formatFileSize, type FormatOptions, scrollToBottom, downloadJSON, updateTitle };
+
+/**
+ * 判断 URL 是否以指定后缀名结尾（忽略大小写）
+ * @param {string} url - 网络静态资源地址（需为合法 URL）
+ * @param {string|string[]} suffix - 后缀名，可以是字符串或字符串数组，如 'jpg' 或 ['.png', 'gif']
+ * @returns {boolean} - 若 URL 路径部分以任意一个后缀结尾则返回 true，否则返回 false
+ */
+function isUrlEndWith(url:string, suffix:string) {
+  // 参数有效性检查
+  if (!url || typeof url !== 'string') return false;
+  if (!suffix) return false;
+
+  // 提取 URL 的路径部分（不含查询参数和哈希）
+  let pathname;
+  try {
+    const urlObj = new URL(url);
+    pathname = urlObj.pathname;
+  } catch {
+    // 无效 URL 直接返回 false
+    return false;
+  }
+  if (!pathname) return false;
+
+  // 将后缀统一转换为数组，并标准化为带点的形式，且转为小写
+  const suffixes = Array.isArray(suffix) ? suffix : [suffix];
+  const normalizedSuffixes = suffixes
+    .filter(s => typeof s === 'string' && s.trim() !== '')
+    .map(s => (s.startsWith('.') ? s : '.' + s).toLowerCase());
+
+  const lowerPathname = pathname.toLowerCase();
+  return normalizedSuffixes.some(suf => lowerPathname.endsWith(suf));
+}
+
+export { formatFileSize, type FormatOptions, scrollToBottom, downloadJSON, updateTitle, isUrlEndWith };
