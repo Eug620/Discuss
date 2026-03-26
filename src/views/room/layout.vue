@@ -3,7 +3,7 @@
       <div class="w-[240px] shadow-md animate__fadeIn animate__animated">
         <div class="flex justify-center items-center gap-2 p-2 text-xs border-b border-gray-300">
 
-            <input type="text" placeholder="输入房间名" v-model="roomName" class="w-full rounded-md p-2 h-8 border border-gray-100 flex justify-center items-center focus:outline-none"/>
+            <input type="text" placeholder="输入房间名" v-model="roomName" class="w-full rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center focus:outline-none"/>
 
             <router-link to="/room/search">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -19,7 +19,10 @@
 
         </div>
         <div v-for="room in getRooms" @click="handleRoomClick(room)" :key="room.id"
-              class="cursor-pointer p-2 hover:bg-gray-300 truncate" :class="{'bg-gray-300': paramsID === room.room_id}">{{ room.room_info.name }} </div>
+              class="cursor-pointer p-2 hover:bg-gray-300 flex gap-2 items-center" :class="{'bg-gray-300': paramsID === room.room_id}">
+              <div class="w-[0px] flex-2 truncate">{{ room.room_info.name }}</div>
+              <div class="w-[0px] flex-1 text-right">{{socketStore.roomMemberOnlineMap.get(room.room_id)?.size}}/{{socketStore.roomMemberMap.get(room.room_id)?.length}}</div>
+            </div>
       </div>
       <div class="flex-auto p-2 animate__fadeIn animate__animated">
           <router-view></router-view>
@@ -28,6 +31,8 @@
 </template>
 <script setup lang="ts">
 import { useRoomStore } from "@/store/modules/room";
+import { useSocketStore } from "@/store/modules/socket";
+
 import router from "@/router";
 import { ref, computed, watchEffect } from "vue";
 import { useRoute } from "vue-router";
@@ -35,6 +40,8 @@ import { useRoute } from "vue-router";
 // 引入 heroicons 图标
 
 const roomStore = useRoomStore();
+const socketStore = useSocketStore();
+
 const roomName = ref('')
 const getRooms = computed(() => {
     return roomStore.rooms.filter((room: any) => room.room_info.name.includes(roomName.value))
