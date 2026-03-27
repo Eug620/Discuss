@@ -36,7 +36,7 @@
                   {{ formatFileSize(message.size) }}
                 </span>
               </div>
-              <div class="inline-block border border-gray-300 p-2 py-1 rounded-md relative">
+              <div class="inline-block bg-gray-300 p-2 py-1 rounded-md relative">
                 <img v-if="message.type === 'image'" :src="`${VITE_APP_API_BASE_URL}${message.content}`" alt="图片已失效" @click="handlePreviewImage(message.content)" class="h-24 rounded-md cursor-pointer"/>
                 <template v-else-if="message.type === 'file'">
                   <video class="max-h-58 rounded-md cursor-pointer" controls v-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['mp4','webm'])">
