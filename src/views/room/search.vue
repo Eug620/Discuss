@@ -20,22 +20,24 @@
       />
     </div>
 
-    <div class="p-2">
+    <div class="p-2 flex flex-col items-center gap-2 text-sm">
       <div
         v-for="item in result"
         :key="item.id"
-        class="cursor-pointer p-2 flex justify-around"
+        class="w-[400px] truncate cursor-pointer p-2 border border-gray-300 rounded-md gap-1 flex flex-col relative"
       >
-        <span>{{ item.name }}</span>
         <button
           v-if="!roomStore.getRoomMap[item.id]"
           @click="handleJoin(item.id)"
+          class="absolute bottom-2 right-2 cursor-pointer"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
         </button>
-
+        <div>名称：{{ item.name }}</div>
+        <div>描述：{{ item.description }}</div>
+        <div>群主：{{ item.user_info.username }}</div>
       </div>
     </div>
   </div>

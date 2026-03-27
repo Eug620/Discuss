@@ -64,7 +64,7 @@
               </div>
           </div>
           <div class="w-full h-60 border-t border-gray-300 p-4 relative">
-              <textarea id="story" name="story" placeholder="Type your message..." v-enter="handleSend" v-model.trim="story" rows="5"
+              <textarea id="story" name="story" placeholder="请输入信息,回车发送..." v-enter="handleSend" v-model.trim="story" rows="5"
                   cols="33" class="w-full h-full "></textarea>
               <button class="absolute bottom-12 right-12 cursor-pointer" @click="handleSendImage">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
