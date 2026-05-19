@@ -38,9 +38,8 @@
 <script lang="ts" setup>
 import { useUserStore } from "@/store/modules/user";
 import router from "@/router";
-import { computed, onUnmounted, ref, watchEffect } from "vue";
-import serverApi from "@/api";
-import { RouterLink, useRoute } from "vue-router";
+import { computed, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import { initRoutes } from "@/router/routes";
 
 function handleClick(page: any) {
@@ -49,43 +48,13 @@ function handleClick(page: any) {
   });
 }
 
-enum TabName {
-  rooms = "rooms",
-  friends = "friends",
-}
 const userStore = useUserStore();
-const activeTab = ref<TabName>(TabName.rooms);
-const tabs = ref([
-  {
-    name: TabName.rooms,
-    label: "rooms",
-  },
-  {
-    name: TabName.friends,
-    label: "friends",
-  },
-]);
-// const collapsed = ref(false)
+
 const handleLogout = () => {
   userStore.logout();
   router.push("/login");
 };
-const handleRoomClick = (room: any) => {
-  router.push({
-    name: "room",
-    params: {
-      roomId: room.id,
-    },
-  });
-};
-const handleFriendClick = (friend: any) => {
-  router.push({
-    name: "friend",
-    params: {
-      friendId: friend.friend_info.id,
-    },
-  });
-};
+
 // 关于
 const handleSetting = () => {
   router.push({
@@ -102,38 +71,6 @@ const getPath = computed(() => {
   return routePath.value?.split('/').filter(Boolean)[0]
 })
 
-
-// 搜索
-const searchQuery = ref("");
-const searchResult = ref<any>({});
-const handleSearch = () => {
-  if (activeTab.value === TabName.rooms) {
-    serverApi.GetRoomInfo(searchQuery.value).then((res: any) => {
-      searchResult.value = res.data;
-    });
-  } else if (activeTab.value === TabName.friends) {
-    serverApi.GetUserInfo(searchQuery.value).then((res: any) => {
-      searchResult.value = res.data;
-    });
-  }
-};
-const handleResultClick = (result: any) => {
-  if (activeTab.value === TabName.rooms) {
-    serverApi
-      .apply({
-        room_id: result.id,
-      })
-      .then((res: any) => {
-      });
-  } else if (activeTab.value === TabName.friends) {
-    serverApi
-      .apply({
-        apply_user_id: result.id,
-      })
-      .then((res: any) => {
-      });
-  }
-};
 
 // 创建 SSE 连接
 // const eventSource = serverApi.CreateEventSource();
