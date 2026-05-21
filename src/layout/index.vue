@@ -52,7 +52,6 @@ const userStore = useUserStore();
 
 const handleLogout = () => {
   userStore.logout();
-  router.push("/login");
 };
 
 // 关于

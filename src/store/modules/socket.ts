@@ -91,6 +91,11 @@ export const useSocketStore = defineStore('socket', {
                         useFriendStore().setFriendStatus(id, true)
                     })
                 })
+
+                // 异地登录-被踢下线
+                this.socket.on('kicked', (data) => {
+                    useUserStore().logout();
+                })
             })
 
         },
