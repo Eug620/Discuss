@@ -20,7 +20,7 @@
         </div>
         <div v-for="room in getRooms" @click="handleRoomClick(room)" :key="room.id"
               class="cursor-pointer p-2 hover:bg-gray-300 flex gap-2 items-center" :class="{'bg-gray-300': paramsID === room.room_id}">
-              <div class="w-[0px] flex-2 truncate">{{ room.room_info.name }}</div>
+              <div class="w-[0px] flex-2 truncate  animate__flipInX animate__animated">{{ room.room_info.name }}</div>
               <div class="w-[0px] flex-1 text-right">{{socketStore.roomMemberOnlineMap.get(room.room_id)?.size}}/{{socketStore.roomMemberMap.get(room.room_id)?.length}}</div>
             </div>
       </div>

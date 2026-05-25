@@ -3,12 +3,12 @@
     <div class="w-[60px] flex flex-col shadow-md animate__fadeIn animate__animated bg-gray-200">
       <div class="flex-1">
         <div v-for="page in initRoutes" @click="handleClick(page)" :key="page.path"
-          class="cursor-pointer text-center p-2 hover:bg-gray-300" :class="{'bg-gray-300': getPath === page.path}">
+          class="cursor-pointer text-center p-2 hover:bg-gray-300 animate__flipInX animate__animated" :class="{'bg-gray-300': getPath === page.path}">
           <div class="w-6 py-1 mx-auto " v-html="page.meta.icon"></div>
         </div>
       </div>
       <div class="">
-        <div class="cursor-pointer text-center p-2 hover:bg-gray-300" @click="handleSetting" :class="{'bg-gray-300': getPath === 'setting'}">
+        <div class="cursor-pointer text-center p-2 hover:bg-gray-300 animate__flipInX animate__animated" @click="handleSetting" :class="{'bg-gray-300': getPath === 'setting'}">
           <div class="w-6 py-1 mx-auto  ">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="size-6">
@@ -20,7 +20,7 @@
         </div>
 
 
-        <div class="cursor-pointer text-center p-2 hover:bg-gray-300" @click="handleLogout">
+        <div class="cursor-pointer text-center p-2 hover:bg-gray-300 animate__flipInX animate__animated" @click="handleLogout">
           <div class="w-6 py-1 mx-auto  ">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="size-6">

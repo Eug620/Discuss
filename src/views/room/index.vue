@@ -1,8 +1,8 @@
 <template lang="">
-  <div class="w-full h-full flex gap-2 ">
+  <div class="w-full h-full flex gap-2 overflow-hidden">
       <div class="w-full h-full flex-1 flex flex-col gap-2">
           <div class="w-full text-center flex border-b border-gray-300 p-2 relative">
-              <div class="flex-1 text-center">
+              <div class="flex-1 text-center animate__flipInX animate__animated">
                   {{ getRoomInfo.name }}
               </div>
                           
@@ -84,7 +84,7 @@
       </div>
       <div class="w-[200px] h-full border-l border-gray-300 flex flex-col gap-2 p-2 pt-0 overflow-hidden" v-show="infoVisiable">
           <div class="flex-1">
-              <div class="border-b border-gray-300 p-2 pl-0">群成员</div>
+              <div class="border-b border-gray-300 p-2 pl-0 animate__flipInX animate__animated">群成员</div>
               <div v-for="member in getMember" :key="member.user_id"
                   class="text-sm flex gap-1 items-center py-1" :class="{
                     'underline underline-offset-2': member.user_id === userStore.userInfo.id,
