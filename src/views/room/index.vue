@@ -17,11 +17,11 @@
               <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2"
                   :style="{ textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left', }">
                   <div class="text-xs text-gray-700 py-1">
-                    <span v-if="message.type && message.sender !== route.params.id" class="px-2">
+                    <span v-if="message.type && message.sender === userStore.userInfo.id" class="px-2">
                       {{ formatFileSize(message.size) }}
                     </span>
                     {{ dayjs(message.timestamp).fromNow() }}
-                    <span v-if="message.type && message.sender === route.params.id" class="px-2">
+                    <span v-if="message.type && message.sender !== userStore.userInfo.id" class="px-2">
                       {{ formatFileSize(message.size) }}
                     </span>
                   </div>
