@@ -37,20 +37,7 @@
                 </span>
               </div>
               <div class="inline-block bg-gray-300 p-2 py-1 rounded-md relative">
-                <img v-if="message.type === 'image'" :src="`${VITE_APP_API_BASE_URL}${message.content}`" alt="图片已失效" @click="handlePreviewImage(message.content)" class="h-24 rounded-md cursor-pointer"/>
-                <template v-else-if="message.type === 'file'">
-                  <video class="max-h-58 rounded-md cursor-pointer" controls v-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['mp4','webm'])">
-                    <source :src="`${VITE_APP_API_BASE_URL}${message.content}`">
-                  </video>
-                  <audio controls v-else-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['mp3','wav'])">
-                    <source :src="`${VITE_APP_API_BASE_URL}${message.content}`">
-                  </audio>
-                  <img v-else-if="isUrlEndWith(`${VITE_APP_API_BASE_URL}${message.content}`,['svg','jpg','jpeg','png','gif','bmp','webp'])" :src="`${VITE_APP_API_BASE_URL}${message.content}`" alt="图片已失效" @click="handlePreviewImage(message.content)" class="h-24 rounded-md cursor-pointer"/>
-                  <a v-else class="text-blue-600/75 no-underline hover:underline" :href="`${VITE_APP_API_BASE_URL}${message.content}`" alt="" target="_blank" >{{message.originalname}}</a>
-                </template>
-                <span v-else class="whitespace-pre-wrap">
-                  {{ message.content }}
-                </span>
+                <Comment :message="message"/>
 
                 <div v-if="message.sender === route.params.id" class="absolute top-2 -left-2 w-0 h-0 
                   border-t-8 border-t-transparent
@@ -130,10 +117,9 @@ import { Socket } from "socket.io-client";
 import dayjs from "@/plugin/dayjs";
 import serverApi from "@/api";
 import { vEnter } from "@/directives/vEnter";
-import { formatFileSize, scrollToBottom, isUrlEndWith } from "@/utils/index";
+import { formatFileSize, scrollToBottom } from "@/utils";
 import { usePaste } from '@/hooks/paste'
-
-const VITE_APP_API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL
+import { Comment } from '@/components'
 
 const socketStore = useSocketStore();
 const friendStore = useFriendStore();
@@ -219,10 +205,6 @@ watch(
   () => {scrollToBottom('messageContainer')},
   { deep: true }
 )
-
-const handlePreviewImage = (url: string) => {
-  window.open(`${VITE_APP_API_BASE_URL}${url}`);
-}
 
 const infoVisiable = ref(true)
 const handleSwitchInfo = () => {

@@ -84,9 +84,9 @@ function downloadJSON(data: Object, filename = 'data.json', indent = 2) {
 }
 
 function updateTitle() {
-  let timer:any
+  let timer: any
   let defaultTitle = document.title
-  
+
   return function setTitle(title: string) {
     timer && clearTimeout(timer)
     document.title = title
@@ -103,7 +103,7 @@ function updateTitle() {
  * @param {string|string[]} suffix - 后缀名，可以是字符串或字符串数组，如 'jpg' 或 ['.png', 'gif']
  * @returns {boolean} - 若 URL 路径部分以任意一个后缀结尾则返回 true，否则返回 false
  */
-function isUrlEndWith(url:string, suffix:string) {
+function isUrlEndWith(url: string, suffix: string | string[]) {
   // 参数有效性检查
   if (!url || typeof url !== 'string') return false;
   if (!suffix) return false;
