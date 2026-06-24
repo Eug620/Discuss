@@ -9,11 +9,11 @@
  * Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
 -->
 <template >
-    <div class="flex flex-col items-center justify-center gap-4 h-full">
+    <div class="flex flex-col items-center gap-4 h-full">
         <input type="text" placeholder="输入房间名" v-model.trim="room.name"
-            class="w-1/2 rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center focus:outline-none" />
+            class="w-1/2 rounded-md p-2 h-8 flex justify-center items-center focus:outline-none" />
         <input type="text" placeholder="输入房间描述" v-model.trim="room.description"
-            class="w-1/2 rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center focus:outline-none" />
+            class="w-1/2 rounded-md p-2 h-8 flex justify-center items-center focus:outline-none" />
 
         <svg @click="handleCreate" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-6 cursor-pointer">
