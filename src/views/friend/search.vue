@@ -12,7 +12,7 @@
     <div>
         <div class="flex justify-center items-center gap-2 p-2 text-xs">
             <input type="text" placeholder="输入用户名" @keyup.enter="handleSearch" v-model.trim="username"
-                class="w-[200px] rounded-md p-2 h-8 border border-gray-300 flex justify-center items-center focus:outline-none" />
+                class="w-[400px] rounded-md p-2 text-center focus:bg-gray-200 focus:outline-none" />
         </div>
 
         <div class="p-2 flex flex-col items-center gap-2 text-sm">
