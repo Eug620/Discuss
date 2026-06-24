@@ -96,6 +96,11 @@ export const useSocketStore = defineStore('socket', {
                 this.socket.on('kicked', (data) => {
                     useUserStore().logout();
                 })
+
+                // 系统通知
+                this.socket.on('alert', (data) => {
+                    setTitle(`[${data.sender}]-${data.message}`)
+                })
             })
 
         },
