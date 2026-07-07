@@ -10,7 +10,7 @@
 -->
 <template lang="">
   <div class="w-full h-full flex">
-      <div class="w-[240px] shadow-md animate__fadeIn animate__animated">
+      <div class="w-[240px] shadow-md shadow-gray-400 animate__fadeIn animate__animated">
         <div class="flex justify-center items-center gap-2 p-2 text-xs border-b border-gray-300">
 
             <input type="text" placeholder="输入用户名" v-model="username" class="w-full rounded-md p-2 h-8 focus:outline-none flex justify-center items-center"/>
@@ -26,9 +26,9 @@
           v-for="friend in getFriends" 
           @click="handleFriendClick(friend)" 
           :key="friend.id"
-          class="cursor-pointer p-2 hover:bg-gray-300 truncate animate__flipInX animate__animated" 
+          class="cursor-pointer p-2 hover:bg-gray-200 truncate animate__flipInX animate__animated" 
           :class="{
-            'bg-gray-300': paramsID === friend.friend_info.id, 
+            'bg-gray-200': paramsID === friend.friend_info.id, 
             'text-green-700': friendStore.getFriendMap[friend.friend_info.id]?.status
           }">{{ friend.friend_info.username }}</div>
       </div>

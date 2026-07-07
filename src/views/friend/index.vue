@@ -36,18 +36,18 @@
                   {{ formatFileSize(message.size) }}
                 </span>
               </div>
-              <div class="inline-block bg-gray-300 p-2 py-1 rounded-md relative">
+              <div class="inline-block bg-gray-200 p-2 py-1 rounded-md relative">
                 <Comment :message="message"/>
 
                 <div v-if="message.sender === route.params.id" class="absolute top-2 -left-2 w-0 h-0 
                   border-t-8 border-t-transparent
-                  border-r-8 border-r-gray-300
+                  border-r-8 border-r-gray-200
                   border-b-8 border-b-transparent">
                 </div>
 
                 <div v-else class="absolute top-2 -right-2 w-0 h-0 
                   border-t-8 border-t-transparent
-                  border-l-8 border-l-gray-300
+                  border-l-8 border-l-gray-200
                   border-b-8 border-b-transparent">
                 </div>
               </div>
