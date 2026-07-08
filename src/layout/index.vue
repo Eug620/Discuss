@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full flex">
-    <div class="w-[60px] flex flex-col shadow-md animate__fadeIn animate__animated ">
+    <div class="w-[60px] flex flex-col border-r border-gray-300 animate__fadeIn animate__animated ">
       <div class="flex-1">
         <div v-for="page in initRoutes" @click="handleClick(page)" :key="page.path"
           class="cursor-pointer text-center p-2 hover:bg-gray-200 animate__flipInX animate__animated" :class="{'bg-gray-200': getPath === page.path}">

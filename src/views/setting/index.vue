@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full text-sm h-full relative p-2">
-        <div class="w-full border border-gray-300">
+    <div class="w-full text-sm h-full relative px-2">
+        <div class="w-full border border-gray-300 border-t-0 ">
             <div v-for="(item, k) in userStore.userInfo" :key="k" class="flex border-b border-gray-300 last:border-b-0">
                 <div class="w-[120px] text-right border-r border-gray-300 p-3 pr-4">{{ k }}:</div>
                 <div class="flex-1 w-full auto-wrap p-3 pl-4">{{ item }}</div>

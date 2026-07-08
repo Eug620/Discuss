@@ -32,7 +32,7 @@ html {
     padding: 0.8em 1.4em;
     font-size: 14px;
     border-radius: 0.4em;
-    background: #e8e8e8;
+    // background: #e8e8e8;
     cursor: pointer;
     border: 1px solid #e8e8e8;
     transition: all 0.3s;
@@ -45,21 +45,24 @@ html {
 }
 
 .input {
-    border: none;
+    // border: none;
     padding: .6rem;
+    border: 1px solid #e8e8e8;
     border-radius: 1rem;
-    background: #e8e8e8;
+    // background: #e8e8e8;
     // box-shadow: 10px 10px 30px #c5c5c5,
     //     -10px -10px 30px #ffffff;
     transition: 0.3s;
 }
 
 .input:focus {
-    outline-color: var(--bgColor);
-    background: #e8e8e8;
+    // outline-color: var(--bgColor);
+    // background: #e8e8e8;
     // box-shadow: inset 10px 10px 30px #c5c5c5,
     //     inset -10px -10px 30px #ffffff;
     transition: 0.3s;
+    border: 1px solid #e8e8e8;
+
 }
 
 .textarea {

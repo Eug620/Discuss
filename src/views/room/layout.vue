@@ -1,6 +1,6 @@
 <template lang="">
   <div class="w-full h-full flex">
-      <div class="w-[240px] shadow-md shadow-gray-400 animate__fadeIn animate__animated">
+      <div class="w-[240px] border-r border-gray-300 animate__fadeIn animate__animated">
         <div class="flex justify-center items-center gap-2 p-2 text-xs border-b border-gray-300">
 
             <input type="text" placeholder="输入房间名" v-model="roomName" class="w-full rounded-md p-2 h-8 flex justify-center items-center focus:outline-none"/>
