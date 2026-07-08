@@ -47,7 +47,7 @@ export const useRoomStore = defineStore('room', {
         // 获取我创建的房间
         getRoomsMine() {
             ServerApi.GetRoomMine().then((res:any) => {
-                this.roomsMine = res.data.list || []
+                this.roomsMine = res.data.rows || []
             })
         },
         // 获取我加入的所有房间及房间成员
