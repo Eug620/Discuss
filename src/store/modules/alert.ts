@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 interface Alert {
     sender: string
     message: string
+    timestamp: string
 }
 export const useAlertStore = defineStore('alert', {
     state: () => ({
