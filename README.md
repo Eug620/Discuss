@@ -59,8 +59,7 @@ Discuss/
 ├── public/                    # 静态资源
 │   ├── _headers              # Cloudflare Headers 配置
 │   ├── _redirects            # Cloudflare 重定向规则
-│   ├── siam.svg              # SVG 图标
-│   └── Tiananmen.svg         # SVG 图标
+│   └── siam.svg              # SVG 图标
 ├── src/
 │   ├── api/                  # API 接口模块
 │   │   ├── apply/            # 申请相关接口

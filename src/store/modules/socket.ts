@@ -3,6 +3,7 @@ import { io, Socket } from 'socket.io-client'
 import { useUserStore } from './user'
 import { useFriendStore } from './friend'
 import { useRoomStore } from './room'
+import { useAlertStore } from "./alert";
 import { updateTitle } from '@/utils'
 
 const setTitle = updateTitle()
@@ -100,6 +101,7 @@ export const useSocketStore = defineStore('socket', {
                 // 系统通知
                 this.socket.on('alert', (data) => {
                     setTitle(`[${data.sender}]-${data.message}`)
+                    useAlertStore().addAlert(data)
                 })
             })
 
