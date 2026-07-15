@@ -2,6 +2,7 @@
 import { useUserStore } from '@/store/modules/user'
 import { useDBStore } from '@/store/modules/database'
 import { useSocketStore } from '@/store/modules/socket'
+import { useAlertStore } from '@/store/modules/alert'
 import { debounce, cloneDeep } from 'lodash-es'
 import { watch, onUnmounted } from 'vue'
 
@@ -14,6 +15,7 @@ import { watch, onUnmounted } from 'vue'
 const userStore = useUserStore()
 const dbStore = useDBStore()
 const socketStore = useSocketStore()
+const alertStore = useAlertStore()
 
 userStore.init()
 
@@ -34,6 +36,10 @@ watch(() => [socketStore.userMessageMap], debounce(([newUserMessageMap]) => {
 
 watch(() => [socketStore.roomMessageMap], debounce(([newRoomMessageMap]) => {
   dbStore.database?.setItem('Room_Message', cloneDeep(newRoomMessageMap))
+}, 1000), { deep: true })
+
+watch(() => [alertStore.alerts], debounce(([newAlerts]) => {
+  dbStore.database?.setItem('Alert_Message', cloneDeep(newAlerts))
 }, 1000), { deep: true })
 
 

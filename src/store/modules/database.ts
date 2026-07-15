@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import localforage from 'localforage'
-import { useSocketStore } from './socket'
+import { useSocketStore } from '@/store/modules/socket'
+import { useAlertStore } from '@/store/modules/alert'
 
 export const useDBStore = defineStore('db', {
     state: () => ({
@@ -22,6 +23,9 @@ export const useDBStore = defineStore('db', {
             })
             this.database?.getItem('Room_Message').then((data:any) => {
                 useSocketStore().roomMessageMap = data || new Map()
+            })
+            this.database?.getItem('Alert_Message').then((data:any) => {
+                useAlertStore().alerts = data || []
             })
         }
     }
