@@ -2,9 +2,6 @@
     <div class="dashboard p-2 h-full overflow-y-auto">
         <div 
             class="text-sm group flex items-end animate__fadeIn animate__animated" 
-            :style="{
-                'animation-delay': `${(idx + 1) * 0.2}s`
-            }"
             v-for="(item,idx) in alertStore.alerts" 
             :key="idx"
         >
