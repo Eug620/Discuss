@@ -10,7 +10,7 @@
 -->
 <template lang="">
   <div class="w-full h-full flex">
-      <div class="w-[240px] border-r border-gray-300 animate__fadeIn animate__animated">
+      <div class="w-[240px] border-r border-gray-300 animate__fadeIn animate__animated flex flex-col">
         <div class="flex justify-center items-center gap-2 p-2 text-xs border-b border-gray-300">
 
             <input type="text" placeholder="输入用户名" v-model="username" class="w-full rounded-md p-2 h-8 focus:outline-none flex justify-center items-center"/>
@@ -22,7 +22,8 @@
             </router-link>
 
         </div>
-        <div 
+        <div class="flex-1 overflow-y-auto">
+          <div 
           v-for="friend in getFriends" 
           @click="handleFriendClick(friend)" 
           :key="friend.id"
@@ -31,6 +32,7 @@
             'bg-gray-200': paramsID === friend.friend_info.id, 
             'text-green-700': friendStore.getFriendMap[friend.friend_info.id]?.status
           }">{{ friend.friend_info.username }}</div>
+        </div>
       </div>
       <div class="flex-auto p-2 animate__fadeIn animate__animated">
           <router-view></router-view>
@@ -46,13 +48,13 @@ import { ref, computed, watchEffect } from "vue";
 const friendStore = useFriendStore();
 const username = ref('')
 const getFriends = computed(() => {
-    return friendStore.friends.filter((friend: any) => friend.friend_info.username.includes(username.value))
+  return friendStore.friends.filter((friend: any) => friend.friend_info.username.includes(username.value))
 })
 
 const route = useRoute()
-const paramsID = ref<string|undefined>(undefined)
+const paramsID = ref<string | undefined>(undefined)
 
-watchEffect(() =>{ 
+watchEffect(() => {
   paramsID.value = route.params?.id as string
 })
 

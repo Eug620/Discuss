@@ -17,32 +17,29 @@
               <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2"
                   :style="{ textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left', }">
                   <div class="text-xs text-gray-700 py-1">
-                    <span v-if="message.type && message.sender === userStore.userInfo.id" class="px-2">
-                      {{ formatFileSize(message.size) }}
+                    <span v-if="message.sender === userStore.userInfo.id" class="px-2">
+                      <template v-if="message.type">{{ formatFileSize(message.size) }}</template>
+                      {{ dayjs(message.timestamp).fromNow() }}
+                      [{{ userStore.userInfo.username }}]
                     </span>
-                    {{ dayjs(message.timestamp).fromNow() }}
-                    <span v-if="message.type && message.sender !== userStore.userInfo.id" class="px-2">
-                      {{ formatFileSize(message.size) }}
+                    <span v-if="message.sender !== userStore.userInfo.id" class="px-2">
+                      [{{ userStore.userInfo.username }}]
+                      {{ dayjs(message.timestamp).fromNow() }}
+                      <template v-if="message.type">{{ formatFileSize(message.size) }}</template>
                     </span>
                   </div>
                   <div class="flex mb-1 items-start">
-                      <div class="px-2 text-sm py-1 border border-transparent" v-if="message.sender !== userStore.userInfo.id">
-                          [{{ getUserInfo(message.sender) }}]
-                      </div>
                       <div class="flex-1">
                           <div class="inline-block bg-gray-200 p-2 py-1 rounded-md relative">
                               <Comment :message="message"/>
 
-                              <div v-if="message.sender !== userStore.userInfo.id"
+                              <!-- <div v-if="message.sender !== userStore.userInfo.id"
                                   class="absolute top-2 -left-2 w-0 h-0 border-t-8 border-t-transparent border-r-8 border-r-gray-200 border-b-8 border-b-transparent">
                               </div>
                               <div v-else
                                   class="absolute top-2 -right-2 w-0 h-0 border-t-8 border-t-transparent border-l-8 border-l-gray-200 border-b-8 border-b-transparent">
-                              </div>
+                              </div> -->
                           </div>
-                      </div>
-                      <div class="px-2 text-sm py-1 border border-transparent" v-if="message.sender === userStore.userInfo.id">
-                          [{{ userStore.userInfo.username }}]
                       </div>
                   </div>
                   
@@ -95,16 +92,16 @@
                   <template v-if="apply.handle_status">
                       {{ apply.status ? '已同意' : '已拒绝' }}
                   </template>
-                  <template v-else>
+<template v-else>
                     <button @click="handleHandleApply(apply, true)">同意</button>
                     <button @click="handleHandleApply(apply, false)">拒绝</button>
                   </template>
-              </div>
-          </div>  
-    </div>
-    <input class="hidden" id="chooseImage" type="file" accept="image/*">
-    <input class="hidden" id="chooseFile" type="file" accept="*">
-  </div>
+</div>
+</div>
+</div>
+<input class="hidden" id="chooseImage" type="file" accept="image/*">
+<input class="hidden" id="chooseFile" type="file" accept="*">
+</div>
 </template>
 <script setup lang="ts">
 import { useSocketStore } from "@/store/modules/socket";
@@ -203,7 +200,7 @@ const handleSendFile = () => {
   document.getElementById("chooseFile")?.click();
 };
 
-const uploadImage = (file:Blob) => {
+const uploadImage = (file: Blob) => {
   const formData = new FormData();
   formData.append("file", file as Blob);
   serverApi.UploadUser(formData).then((res: any) => {
@@ -218,7 +215,7 @@ const uploadImage = (file:Blob) => {
   });
 }
 
-const uploadFile = (file:Blob) => {
+const uploadFile = (file: Blob) => {
   const formData = new FormData();
   formData.append("file", file as Blob);
   serverApi.UploadUser(formData).then((res: any) => {
@@ -249,7 +246,7 @@ onMounted(() => {
 });
 
 // 快捷上传图片及文件
-usePaste(uploadImage,uploadFile)
+usePaste(uploadImage, uploadFile)
 
 // 自动滚到最新消息
 watch(

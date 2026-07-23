@@ -1,6 +1,6 @@
 <template lang="">
   <div class="w-full h-full flex">
-      <div class="w-[240px] border-r border-gray-300 animate__fadeIn animate__animated">
+      <div class="w-[240px] border-r border-gray-300 animate__fadeIn animate__animated flex flex-col">
         <div class="flex justify-center items-center gap-2 p-2 text-xs border-b border-gray-300">
 
             <input type="text" placeholder="输入房间名" v-model="roomName" class="w-full rounded-md p-2 h-8 flex justify-center items-center focus:outline-none"/>
@@ -18,11 +18,13 @@
             </router-link>
 
         </div>
-        <div v-for="room in getRooms" @click="handleRoomClick(room)" :key="room.id"
+        <div class="flex-1 overflow-y-auto">
+          <div v-for="room in getRooms" @click="handleRoomClick(room)" :key="room.id"
               class="cursor-pointer p-2 hover:bg-gray-200 flex gap-2 items-center" :class="{'bg-gray-200': paramsID === room.room_id}">
               <div class="w-[0px] flex-2 truncate  animate__flipInX animate__animated">{{ room.room_info.name }}</div>
               <div class="w-[0px] flex-1 text-right">{{socketStore.roomMemberOnlineMap.get(room.room_id)?.size}}/{{socketStore.roomMemberMap.get(room.room_id)?.length}}</div>
             </div>
+        </div>
       </div>
       <div class="flex-auto p-2 animate__fadeIn animate__animated">
           <router-view></router-view>
@@ -44,13 +46,13 @@ const socketStore = useSocketStore();
 
 const roomName = ref('')
 const getRooms = computed(() => {
-    return roomStore.rooms.filter((room: any) => room.room_info.name.includes(roomName.value))
+  return roomStore.rooms.filter((room: any) => room.room_info.name.includes(roomName.value))
 })
 
 const route = useRoute()
-const paramsID = ref<string|undefined>(undefined)
+const paramsID = ref<string | undefined>(undefined)
 
-watchEffect(() =>{ 
+watchEffect(() => {
   paramsID.value = route.params?.id as string
 })
 
