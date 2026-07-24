@@ -9,7 +9,7 @@
  * Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
 -->
 <template lang="">
-  <div class="w-full h-full flex gap-2 ">
+  <div class="w-full h-full flex gap-2 p-2">
     <div class="w-full h-full flex flex-col gap-2">
         <div class="w-full text-center flex border-b border-gray-300 p-2 relative">
             <div class="flex-1 text-center animate__flipInX animate__animated">
@@ -22,7 +22,7 @@
               </svg>
             </button>
         </div>
-        <div class="w-full h-full p-4 flex-1 overflow-y-auto relative" id="messageContainer">
+        <div class="w-full h-full flex-1 overflow-y-auto relative" id="messageContainer">
            <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2 group" :style="{
             textAlign: message.sender === route.params.id ? 'left' : 'right',
            }">

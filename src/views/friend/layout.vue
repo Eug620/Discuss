@@ -34,7 +34,7 @@
           }">{{ friend.friend_info.username }}</div>
         </div>
       </div>
-      <div class="flex-auto p-2 animate__fadeIn animate__animated">
+      <div class="flex-auto animate__fadeIn animate__animated">
           <router-view></router-view>
       </div>
   </div>

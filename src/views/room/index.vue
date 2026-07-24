@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="w-full h-full flex gap-2 overflow-hidden">
+  <div class="w-full h-full flex gap-2 overflow-hidden p-2">
       <div class="w-full h-full flex-1 flex flex-col gap-2">
           <div class="w-full text-center flex border-b border-gray-300 p-2 relative">
               <div class="flex-1 text-center animate__flipInX animate__animated">
@@ -13,7 +13,7 @@
               </button>
           </div>
 
-          <div class="w-full h-full p-4 flex-1 overflow-y-auto" id="messageContainer">
+          <div class="w-full h-full flex-1 overflow-y-auto" id="messageContainer">
               <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2 group"
                   :style="{ textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left', }">
                   <div class="text-xs text-gray-700 py-1">
@@ -23,7 +23,7 @@
                       [{{ userStore.userInfo.username }}]
                     </span>
                     <span v-if="message.sender !== userStore.userInfo.id" class="px-2">
-                      [{{ userStore.userInfo.username }}]
+                      [{{ getUserInfo(message.sender) }}]
                       {{ dayjs(message.timestamp).fromNow() }}
                       <span class="hidden group-hover:inline-block" v-if="message.type">{{ formatFileSize(message.size) }}</span>
                     </span>
