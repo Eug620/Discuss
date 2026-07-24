@@ -23,16 +23,16 @@
             </button>
         </div>
         <div class="w-full h-full p-4 flex-1 overflow-y-auto relative" id="messageContainer">
-           <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2" :style="{
+           <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2 group" :style="{
             textAlign: message.sender === route.params.id ? 'left' : 'right',
            }">
             <div class="mb-1 ">
               <div class="text-xs text-gray-700 py-1" >
-                <span v-if="message.type && message.sender !== route.params.id" class="px-2">
+                <span v-if="message.type && message.sender !== route.params.id" class="px-2 hidden group-hover:inline-block">
                   {{ formatFileSize(message.size) }}
                 </span>
                 {{ dayjs(message.timestamp).fromNow() }}
-                <span v-if="message.type && message.sender === route.params.id" class="px-2">
+                <span v-if="message.type && message.sender === route.params.id" class="px-2 hidden group-hover:inline-block">
                   {{ formatFileSize(message.size) }}
                 </span>
               </div>

@@ -14,18 +14,18 @@
           </div>
 
           <div class="w-full h-full p-4 flex-1 overflow-y-auto" id="messageContainer">
-              <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2"
+              <div v-for="message in getHistory" :key="message.id" class="w-full h-auto p-2 group"
                   :style="{ textAlign: message.sender === userStore.userInfo.id ? 'right' : 'left', }">
                   <div class="text-xs text-gray-700 py-1">
                     <span v-if="message.sender === userStore.userInfo.id" class="px-2">
-                      <template v-if="message.type">{{ formatFileSize(message.size) }}</template>
+                      <span class="hidden group-hover:inline-block" v-if="message.type">{{ formatFileSize(message.size) }}</span>
                       {{ dayjs(message.timestamp).fromNow() }}
                       [{{ userStore.userInfo.username }}]
                     </span>
                     <span v-if="message.sender !== userStore.userInfo.id" class="px-2">
                       [{{ userStore.userInfo.username }}]
                       {{ dayjs(message.timestamp).fromNow() }}
-                      <template v-if="message.type">{{ formatFileSize(message.size) }}</template>
+                      <span class="hidden group-hover:inline-block" v-if="message.type">{{ formatFileSize(message.size) }}</span>
                     </span>
                   </div>
                   <div class="flex mb-1 items-start">
