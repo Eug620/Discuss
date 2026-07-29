@@ -73,7 +73,7 @@ export default defineConfig(({ mode }) => {
         compress: {
           drop_console: true, // 生产环境移除 console
           drop_debugger: true, // 移除 debugger
-          pure_funcs: ['console.log'], // 移除特定函数
+          pure_funcs: ['console.log', 'console.info', 'console.debug'], // 移除特定函数
         },
         format: {
           comments: false, // 移除注释
