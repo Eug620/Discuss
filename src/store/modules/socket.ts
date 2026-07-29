@@ -83,7 +83,7 @@ export const useSocketStore = defineStore('socket', {
                 // 接收好友状态更新
                 this.socket.on('status', (data) => {
                     useFriendStore().setFriendStatus(data.friend, data.status)
-                    setTitle(`[${useFriendStore().getFriendMap[data.friend]?.friend_info?.username}]-${data.status ? '上线' : '离线'}`)
+                    setTitle(`[${useFriendStore().getFriendMap[data.friend]?.friend_info?.username}] ${data.status ? '上线' : '离线'}`)
                 })
 
                 // 初始化获取所有在线好友
@@ -100,7 +100,7 @@ export const useSocketStore = defineStore('socket', {
 
                 // 系统通知
                 this.socket.on('alert', (data) => {
-                    setTitle(`[${data.sender}]-${data.message}`)
+                    setTitle(`[${data.sender}] ${data.message}`)
                     useAlertStore().addAlert(data)
                 })
             })
