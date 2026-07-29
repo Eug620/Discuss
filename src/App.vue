@@ -41,8 +41,6 @@ watch(() => [socketStore.roomMessageMap], debounce(([newRoomMessageMap]) => {
 watch(() => [alertStore.alerts], debounce(([newAlerts]) => {
   dbStore.database?.setItem('Alert_Message', cloneDeep(newAlerts))
 }, 1000), { deep: true })
-
-
 </script>
 
 <template>

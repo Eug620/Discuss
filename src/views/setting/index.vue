@@ -7,6 +7,19 @@
             </div>
 
             <div  class="flex border-b border-gray-300 last:border-b-0">
+                <div class="w-[120px] text-right border-r border-gray-300 p-3 pr-4">Time:</div>
+                <div class="flex-1 w-full auto-wrap p-3 pl-4">{{__COMMIT_INFO__.time}}</div>
+            </div>
+            <div  class="flex border-b border-gray-300 last:border-b-0">
+                <div class="w-[120px] text-right border-r border-gray-300 p-3 pr-4">Author:</div>
+                <div class="flex-1 w-full auto-wrap p-3 pl-4">{{__COMMIT_INFO__.author}}</div>
+            </div>
+            <div  class="flex border-b border-gray-300 last:border-b-0">
+                <div class="w-[120px] text-right border-r border-gray-300 p-3 pr-4">Commit:</div>
+                <div class="flex-1 w-full auto-wrap p-3 pl-4">{{__COMMIT_INFO__.hash}}</div>
+            </div>
+
+            <div  class="flex border-b border-gray-300 last:border-b-0">
                 <div class="w-[120px] text-right border-r border-gray-300 p-3 pr-4">聊天记录:</div>
                 <div class="flex-1 w-full auto-wrap p-3 pl-4 text-blue-600 cursor-pointer" @click="handleExport">导出</div>
             </div>
@@ -23,12 +36,18 @@ import { useUserStore } from '@/store/modules/user'
 import { useDBStore } from '@/store/modules/database'
 import { useSocketStore } from '@/store/modules/socket'
 import { downloadJSON } from '@/utils/index'
-import { onMounted } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { sortBy, uniqWith, isEqual } from 'lodash-es';
 const userStore = useUserStore()
 const socketStore = useSocketStore()
 
 const dbStore = useDBStore()
+
+const __COMMIT_INFO__ = reactive({
+    hash: __COMMIT_HASH__,
+    author: __COMMIT_AUTHOR__,
+    time: __COMMIT_TIME__
+})
 const handleExport = () => {
     console.log('export', dbStore)
     let _obj: any = {}
