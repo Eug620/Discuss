@@ -68,7 +68,7 @@
           <div class="flex-1">
               <div class="border-b border-gray-300 p-2 pl-0 animate__flipInX animate__animated">群成员</div>
               <div v-for="member in getMember" :key="member.user_id"
-                  class="text-sm flex gap-1 items-center py-1 hover:bg-gray-200 my-1 rounded-md" :class="{
+                  class="group text-sm flex gap-1 items-center py-1 hover:bg-gray-200 my-1 rounded-md" :class="{
                     'underline underline-offset-2': member.user_id === userStore.userInfo.id,
                     'text-green-700': getMemberOnline.has(member.user_id)
                   }">
@@ -85,7 +85,7 @@
                   <span class="flex-1 gap-1 items-center truncate">{{ member.user_info.username }}</span>
 
                   <template v-if="getRoomInfo.creator !== member.user_id && roomStore.roomsMine.find((item: any) => item.id === route.params.id)">
-                    <svg @click="handleRemoveMember(member.id)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 cursor-pointer">
+                    <svg @click="handleRemoveMember(member.id)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 cursor-pointer hidden group-hover:block">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                   </template>
