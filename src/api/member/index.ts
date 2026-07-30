@@ -39,4 +39,10 @@ export default {
             params: query
         })
     },
+    RemoveMember(id:string) {
+        return request({
+            url: `${Url[requestServerName].member}/${id}`,
+            method: 'delete',
+        })
+    }
 }
