@@ -26,7 +26,7 @@
             </div>
         </div>
       </div>
-      <div class="flex-auto animate__fadeIn animate__animated">
+      <div class="w-0 flex-auto animate__fadeIn animate__animated">
           <router-view></router-view>
       </div>
   </div>
