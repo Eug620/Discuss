@@ -3,14 +3,20 @@ import { useUserStore } from '@/store/modules/user'
 import { useDBStore } from '@/store/modules/database'
 import { useSocketStore } from '@/store/modules/socket'
 import { useAlertStore } from '@/store/modules/alert'
+import { useThemeStore } from "@/store/modules/theme";
 import { debounce, cloneDeep } from 'lodash-es'
-import { watch, onUnmounted } from 'vue'
+import { watch, onUnmounted, onMounted } from 'vue'
 
 // Notification.requestPermission().then(permission => {
 //   if (permission === 'granted') {
 //     new Notification('标题', { body: '通知已授权' });
 //   }
 // });
+
+const themeStore = useThemeStore();
+onMounted(() => {
+  themeStore.initTheme();
+});
 
 const userStore = useUserStore()
 const dbStore = useDBStore()

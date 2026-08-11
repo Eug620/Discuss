@@ -1,123 +1,505 @@
 @use'../font/woff2/index.css';
 
 html {
-    /* 定义变量 */
-    // --bgColor: rgb(226, 227, 228);
     font-family: 'PingFangSC-Regular-woff2';
 }
 
+/* ========== 日间模式（默认） ========== */
+html.light {
+    --bgColor: #f0f2f5;
+    --sidebarBg: #ffffff;
+    --textColor: #1f2937;
+    --textSecondary: #6b7280;
+    --borderColor: #e5e7eb;
+    --hoverBgColor: #f3f4f6;
+    --activeBgColor: #eff6ff;
+    --activeBorderColor: #3b82f6;
+    --inputBgColor: #ffffff;
+    --inputBorderColor: #e5e7eb;
+    --cardBg: #ffffff;
+    --cardHoverBg: #f9fafb;
+    --shadowColor: rgba(0, 0, 0, 0.06);
+    --shadowHoverColor: rgba(0, 0, 0, 0.1);
+    --shadowElevated: rgba(0, 0, 0, 0.08);
+    --primaryColor: #3b82f6;
+    --primaryHoverColor: #2563eb;
+    --primaryGradient: linear-gradient(135deg, #3b82f6, #60a5fa);
+    --primaryGlow: rgba(59, 130, 246, 0.3);
+    --messageBg: #eff6ff;
+    --messageSelfBg: #dbeafe;
+    --successColor: #10b981;
+    --dangerColor: #ef4444;
+    --warningColor: #f59e0b;
+    --onlineColor: #10b981;
+}
+
+/* ========== 夜间模式 ========== */
+html.dark {
+    --bgColor: #0f172a;
+    --sidebarBg: #1e293b;
+    --textColor: #e2e8f0;
+    --textSecondary: #94a3b8;
+    --borderColor: #334155;
+    --hoverBgColor: #334155;
+    --activeBgColor: #1e3a5f;
+    --activeBorderColor: #3b82f6;
+    --inputBgColor: #1e293b;
+    --inputBorderColor: #334155;
+    --cardBg: #1e293b;
+    --cardHoverBg: #334155;
+    --shadowColor: rgba(0, 0, 0, 0.3);
+    --shadowHoverColor: rgba(0, 0, 0, 0.4);
+    --shadowElevated: rgba(0, 0, 0, 0.5);
+    --primaryColor: #60a5fa;
+    --primaryHoverColor: #3b82f6;
+    --primaryGradient: linear-gradient(135deg, #3b82f6, #60a5fa);
+    --primaryGlow: rgba(96, 165, 250, 0.4);
+    --messageBg: #334155;
+    --messageSelfBg: #1e3a5f;
+    --successColor: #34d399;
+    --dangerColor: #f87171;
+    --warningColor: #fbbf24;
+    --onlineColor: #34d399;
+}
+
+/* ========== 应用基础 ========== */
 #app {
     height: 100dvh;
     width: 100dvw;
     background-color: var(--bgColor);
+    color: var(--textColor);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.neumorphism-up {
+/* ========== 卡片组件 ========== */
+.card {
+    background: var(--cardBg);
     border-radius: 12px;
-    background: linear-gradient(145deg, #cbcccd, #f2f3f4);
-    box-shadow: 20px 20px 60px #c0c1c2,
-        -20px -20px 60px #ffffff;
+    border: 1px solid var(--borderColor);
+    box-shadow: 0 1px 3px var(--shadowColor);
+    transition: all 0.2s ease;
 }
 
-.neumorphism-down {
-    border-radius: 12px;
-    background: #e2e3e4;
-    box-shadow: inset 20px 20px 60px #c0c1c2,
-        inset -20px -20px 60px #ffffff;
+.card-hover:hover {
+    box-shadow: 0 4px 12px var(--shadowHoverColor);
+    transform: translateY(-1px);
 }
 
+.card-elevated {
+    background: var(--cardBg);
+    border-radius: 16px;
+    border: 1px solid var(--borderColor);
+    box-shadow: 
+        0 16px 32px -8px var(--shadowElevated),
+        0 0 0 1px var(--borderColor);
+}
 
-.login button {
-    color: #090909;
-    padding: 0.8em 1.4em;
-    font-size: 14px;
-    border-radius: 0.4em;
-    // background: #e8e8e8;
+/* ========== 导航项 ========== */
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 10px;
     cursor: pointer;
-    border: 1px solid #e8e8e8;
-    transition: all 0.3s;
-    // box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+    color: var(--textSecondary);
+    transition: all 0.2s ease;
+    position: relative;
 }
 
-.login button:active {
-    color: #666;
-    box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+.nav-item:hover {
+    background: var(--hoverBgColor);
+    color: var(--textColor);
 }
 
+.nav-item.active {
+    background: var(--activeBgColor);
+    color: var(--primaryColor);
+}
+
+.nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: var(--primaryGradient);
+    border-radius: 0 3px 3px 0;
+}
+
+/* ========== 列表项 ========== */
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--textColor);
+    position: relative;
+}
+
+.list-item:hover {
+    background: var(--hoverBgColor);
+}
+
+.list-item.active {
+    background: var(--activeBgColor);
+}
+
+.list-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: var(--primaryGradient);
+    border-radius: 0 3px 3px 0;
+}
+
+/* ========== 输入框 ========== */
 .input {
-    // border: none;
-    padding: .6rem;
-    border: 1px solid #e8e8e8;
-    border-radius: 1rem;
-    // background: #e8e8e8;
-    // box-shadow: 10px 10px 30px #c5c5c5,
-    //     -10px -10px 30px #ffffff;
-    transition: 0.3s;
+    padding: 0 14px;
+    height: 40px;
+    border: 1px solid var(--inputBorderColor);
+    border-radius: 10px;
+    background-color: var(--inputBgColor);
+    color: var(--textColor);
+    transition: all 0.2s ease;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.input::placeholder {
+    color: var(--textSecondary);
+    opacity: 0.7;
 }
 
 .input:focus {
-    // outline-color: var(--bgColor);
-    // background: #e8e8e8;
-    // box-shadow: inset 10px 10px 30px #c5c5c5,
-    //     inset -10px -10px 30px #ffffff;
-    transition: 0.3s;
-    border: 1px solid #e8e8e8;
-
+    outline: none;
+    border-color: var(--primaryColor);
+    box-shadow: 0 0 0 3px var(--primaryGlow);
 }
 
+/* ========== 文本域 ========== */
 .textarea {
     border: none;
-    padding: .6rem;
-    border-radius: 1rem;
-    background: var(--bgColor);
-    box-shadow: 10px 10px 30px #c5c5c5,
-        -10px -10px 30px var(--bgColor);
-    transition: 0.3s;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--inputBgColor);
+    color: var(--textColor);
+    transition: all 0.2s ease;
+    font-size: 14px;
+    line-height: 1.6;
+    width: 100%;
+    min-height: 80px;
+    resize: none;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.textarea::placeholder {
+    color: var(--textSecondary);
+    opacity: 0.6;
 }
 
 .textarea:focus {
-    outline-color: #e8e8e8;
-    background: var(--bgColor);
-    box-shadow: inset 10px 10px 30px #c5c5c5,
-        inset -10px -10px 30px var(--bgColor);
-    transition: 0.3s;
-}
-
-
-textarea:focus {
-    border-color: none;
-    /* 聚焦时边框颜色 */
     outline: none;
-    /* 移除默认轮廓线 */
+    background: var(--inputBgColor);
 }
 
-textarea {
-    resize: none;
+/* ========== 按钮 ========== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    background: var(--primaryGradient);
+    color: #fff;
+    box-shadow: 0 3px 10px var(--primaryGlow);
 }
 
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px var(--primaryGlow);
+}
 
-// .switch-holder {
-//     display: flex;
-//     padding: 10px 20px;
-//     border-radius: 10px;
-//     box-shadow: -8px -8px 15px rgba(255, 255, 255, .7),
-//         10px 10px 10px rgba(0, 0, 0, .2),
-//         inset 8px 8px 15px rgba(255, 255, 255, .7),
-//         inset 10px 10px 10px rgba(0, 0, 0, .2);
-//     justify-content: space-between;
-//     align-items: center;
-// }
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px var(--primaryGlow);
+}
 
-// .switch-label {
-//     padding: 0 20px 0 10px
-// }
+.btn-secondary {
+    background: var(--cardBg);
+    color: var(--textColor);
+    border: 1px solid var(--borderColor);
+    box-shadow: none;
+}
 
-// .switch-label i {
-//     margin-right: 5px;
-// }
+.btn-secondary:hover {
+    background: var(--hoverBgColor);
+    box-shadow: 0 2px 8px var(--shadowHoverColor);
+}
 
-.login-toggle {
+.btn-danger {
+    background: var(--dangerColor);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+}
+
+.btn-success {
+    background: var(--successColor);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-success:hover {
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--textSecondary);
+    box-shadow: none;
+}
+
+.btn-ghost:hover {
+    background: var(--hoverBgColor);
+    color: var(--textColor);
+    box-shadow: none;
+    transform: none;
+}
+
+/* ========== 分隔线 ========== */
+.divider {
+    border: none;
+    border-top: 1px solid var(--borderColor);
+    margin: 0;
+}
+
+/* ========== 头像 ========== */
+.avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--primaryGradient);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.avatar.purple {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+.avatar.online {
+    box-shadow: 0 0 0 2px var(--onlineColor);
+}
+
+/* ========== 消息气泡 ========== */
+.message-bubble {
+    display: inline-block;
+    padding: 9px 13px;
+    border-radius: 16px;
+    max-width: 72%;
+    word-break: break-word;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.message-bubble.other {
+    background: var(--messageBg);
+    color: var(--textColor);
+    border-bottom-left-radius: 6px;
+    border: 1px solid var(--borderColor);
+}
+
+.message-bubble.self {
+    background: var(--primaryGradient);
+    color: #fff;
+    border-bottom-right-radius: 6px;
+    box-shadow: 0 2px 8px var(--primaryGlow);
+}
+
+/* ========== 状态指示器 ========== */
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--borderColor);
+}
+
+.status-dot.online {
+    background: var(--onlineColor);
+    box-shadow: 0 0 6px var(--onlineColor);
+}
+
+.status-badge {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: 8px;
+    background: var(--hoverBgColor);
+    color: var(--textSecondary);
+}
+
+.status-badge.success {
+    color: var(--successColor);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.status-badge.pending {
+    color: var(--primaryColor);
+    background: var(--activeBgColor);
+}
+
+.status-badge.danger {
+    color: var(--dangerColor);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* ========== 图标按钮 ========== */
+.icon-btn {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: var(--textSecondary);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.icon-btn:hover {
+    background: var(--hoverBgColor);
+    color: var(--primaryColor);
+    transform: translateY(-1px);
+}
+
+/* ========== 卡片头部 ========== */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--textColor);
+}
+
+.card-count {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primaryColor);
+    background: var(--activeBgColor);
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+/* ========== 头部图标 ========== */
+.header-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--activeBgColor);
+    color: var(--primaryColor);
+}
+
+/* ========== 空状态 ========== */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 16px;
+    color: var(--textSecondary);
+    font-size: 14px;
+    gap: 10px;
+}
+
+.empty-icon {
+    width: 40px;
     height: 40px;
+    opacity: 0.5;
+}
+
+/* ========== 滚动条 ========== */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--borderColor);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--textSecondary);
+}
+
+/* ========== 图片 alt ========== */
+img[alt] {
+    font-size: 0.75rem;
+    color: var(--textSecondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========== 登录按钮 ========== */
+.login button {
+    color: var(--textColor);
+    padding: 0.8em 1.4em;
+    font-size: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid var(--borderColor);
+    transition: all 0.2s ease;
+    background-color: var(--cardBg);
+}
+
+.login button:active {
+    color: var(--textSecondary);
+    box-shadow: inset 2px 2px 8px var(--shadowColor);
+}
+
+/* ========== 登录切换开关 ========== */
+.login-toggle {
+    height: 44px;
 }
 
 .login-toggle input[type="checkbox"] {
@@ -129,81 +511,619 @@ textarea {
 .login-toggle input[type="checkbox"]+label {
     position: relative;
     display: inline-block;
-    width: 100px;
-    height: 40px;
-    border-radius: 20px;
+    width: 120px;
+    height: 44px;
+    border-radius: 22px;
     margin: 0;
     cursor: pointer;
-    box-shadow: inset -8px -8px 15px rgba(255, 255, 255, .6),
-        inset 10px 10px 10px rgba(0, 0, 0, .25);
+    background: var(--cardBg);
+    border: 1px solid var(--borderColor);
+    transition: all 0.3s ease;
 }
 
 .login-toggle input[type="checkbox"]+label::before {
     position: absolute;
     content: '登录';
     font-size: 13px;
+    font-weight: 500;
     text-align: center;
-    line-height: 25px;
-    top: 8px;
-    left: 8px;
-    width: 45px;
-    height: 25px;
-    border-radius: 20px;
-    background-color: #eeeeee;
-    box-shadow: -3px -3px 5px rgba(255, 255, 255, .5),
-        3px 3px 5px rgba(0, 0, 0, .25);
-    transition: .3s ease-in-out;
+    line-height: 28px;
+    top: 7px;
+    left: 7px;
+    width: 53px;
+    height: 30px;
+    border-radius: 16px;
+    background: var(--bgColor);
+    color: var(--textColor);
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 2px 4px var(--shadowColor);
 }
 
 .login-toggle input[type="checkbox"]:checked+label::before {
-    left: 50%;
+    left: 60px;
     content: '注册';
     color: #fff;
-    background-color: #00b33c;
-    box-shadow: -3px -3px 5px rgba(255, 255, 255, .5),
-        3px 3px 5px #00b33c;
+    background: var(--primaryGradient);
+    box-shadow: 0 2px 8px var(--primaryGlow);
 }
 
+/* ========== NProgress ========== */
 #nprogress .bar {
-    background: oklch(87.2% 0.01 258.338);
+    background: var(--primaryColor);
 }
 
-/**
- * 滚动条样式
- */
-::-webkit-scrollbar {
-    width: 4px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-// /* 或者使用属性选择器 */
-img[alt] {
-  font-size: 0.75rem; /* 设置 alt 文本的字体大小 */
-  color: #666; /* 设置 alt 文本颜色 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
-/* 整个页面默认不可选 */
+/* ========== 选中状态 ========== */
 body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    // font-family: Arial, sans-serif;
+}
+
+/* ========== 动画 ========== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ========== 页面容器 ========== */
+.page-container {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    height: 100%;
+    background-color: var(--bgColor);
+}
+
+/* ========== 侧边栏容器 ========== */
+.sidebar-card {
+    width: 240px;
+    background: var(--cardBg);
+    border-radius: 12px;
+    border: 1px solid var(--borderColor);
+    box-shadow: 0 1px 3px var(--shadowColor);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== 内容区域 ========== */
+.content-area {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== 搜索框 ========== */
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    width: 16px;
+    height: 16px;
+    color: var(--textSecondary);
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.search-input {
+    width: 100%;
+    height: 34px;
+    padding: 0 10px 0 32px;
+    border: 1px solid var(--inputBorderColor);
+    border-radius: 10px;
+    background: var(--inputBgColor);
+    color: var(--textColor);
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-input::placeholder {
+    color: var(--textSecondary);
+    opacity: 0.7;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primaryColor);
+    box-shadow: 0 0 0 3px var(--primaryGlow);
+}
+
+.search-wrapper:focus-within .search-icon {
+    color: var(--primaryColor);
+}
+
+/* ========== 列表 ========== */
+.sidebar-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sidebar-item:hover {
+    background: var(--hoverBgColor);
+}
+
+.sidebar-item.active {
+    background: var(--activeBgColor);
+}
+
+.sidebar-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: var(--primaryGradient);
+    border-radius: 0 3px 3px 0;
+}
+
+.item-name {
+    flex: 1;
+    color: var(--textColor);
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ========== 工具栏按钮 ========== */
+.toolbar-btn {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: var(--textSecondary);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.toolbar-btn:hover {
+    background: var(--hoverBgColor);
+    color: var(--primaryColor);
+}
+
+/* ========== 发送按钮 ========== */
+.send-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: var(--primaryGradient);
+    color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px var(--primaryGlow);
+}
+
+.send-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px var(--primaryGlow);
+}
+
+.send-btn:active {
+    transform: translateY(0);
+}
+
+/* ========== 信息面板 ========== */
+.info-panel {
+    width: 220px;
+    background: var(--cardBg);
+    border-radius: 12px;
+    border: 1px solid var(--borderColor);
+    box-shadow: 0 1px 3px var(--shadowColor);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-header {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--borderColor);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--textColor);
+}
+
+.info-body {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    min-width: 0;
+}
+
+.info-item:hover {
+    background: var(--hoverBgColor);
+}
+
+.info-item-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: var(--hoverBgColor);
+    color: var(--textSecondary);
+    flex-shrink: 0;
+}
+
+.info-item-value {
+    flex: 1;
+    min-width: 0;
+    font-size: 13px;
+    color: var(--textColor);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info-item-value.wrap {
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* ========== 聊天容器 ========== */
+.chat-container {
+    display: flex;
+    height: 100%;
+    gap: 12px;
+    padding: 12px;
+    background-color: var(--bgColor);
+}
+
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--cardBg);
+    border-radius: 12px;
+    border: 1px solid var(--borderColor);
+    box-shadow: 0 1px 3px var(--shadowColor);
+    overflow: hidden;
+    min-width: 0;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--borderColor);
+    background: var(--cardBg);
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--primaryGradient);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px var(--primaryGlow);
+}
+
+.header-avatar.purple {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.25);
+}
+
+.header-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--textColor);
+}
+
+.info-toggle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: var(--textSecondary);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.info-toggle:hover {
+    background: var(--hoverBgColor);
+    color: var(--primaryColor);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.message-row {
+    display: flex;
+}
+
+.message-row.self {
+    justify-content: flex-end;
+}
+
+.message-time {
+    font-size: 11px;
+    color: var(--textSecondary);
+    margin-bottom: 3px;
+    opacity: 0.75;
+}
+
+.message-bubble.self .message-time {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.file-size {
+    margin: 0 3px;
+    opacity: 0.7;
+}
+
+.chat-input-area {
+    border-top: 1px solid var(--borderColor);
+    padding: 10px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--cardBg);
+}
+
+.input-toolbar {
+    display: flex;
+    gap: 4px;
+}
+
+.textarea-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* ========== 设置/信息行 ========== */
+.info-rows {
+    display: flex;
+    flex-direction: column;
+    padding: 2px 10px 10px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    gap: 12px;
+}
+
+.info-row:hover {
+    background: var(--hoverBgColor);
+}
+
+.info-row.clickable {
+    cursor: pointer;
+}
+
+.info-row.clickable:hover .row-value.action {
+    color: var(--primaryColor);
+}
+
+.row-label {
+    width: 90px;
+    font-size: 13px;
+    color: var(--textSecondary);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.row-value {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    color: var(--textColor);
+    word-break: break-word;
+}
+
+.row-value.mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 13px;
+}
+
+.row-value.action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primaryColor);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+/* ========== 表单组件 ========== */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--textSecondary);
+    padding-left: 2px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    width: 18px;
+    height: 18px;
+    color: var(--textSecondary);
+    pointer-events: none;
+}
+
+.form-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px 0 38px;
+    border: 1px solid var(--inputBorderColor);
+    border-radius: 10px;
+    background: var(--inputBgColor);
+    color: var(--textColor);
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.form-input::placeholder {
+    color: var(--textSecondary);
+    opacity: 0.7;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primaryColor);
+    box-shadow: 0 0 0 3px var(--primaryGlow);
+}
+
+.input-wrapper:focus-within .input-icon {
+    color: var(--primaryColor);
+}
+
+.login-btn {
+    margin-top: 6px;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primaryGradient);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 10px var(--primaryGlow);
+}
+
+.login-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px var(--primaryGlow);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-icon path {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ========== 验证码行 ========== */
+.captcha-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.captcha-img {
+    height: 40px;
+    min-width: 100px;
+    border-radius: 10px;
+    border: 1px solid var(--inputBorderColor);
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bgColor);
+    transition: all 0.2s ease;
+    padding: 4px;
+}
+
+.captcha-img:hover {
+    border-color: var(--primaryColor);
 }
