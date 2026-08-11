@@ -268,7 +268,7 @@ npm run preview
 
 项目已配置 GitHub Pages 自动部署，推送代码到 `main` 分支后自动触发部署。
 
-部署地址：https://eug620.github.io/discuss/
+部署地址：https://ulnae.github.io/discuss/
 
 ### 手动部署
 
