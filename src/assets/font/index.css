@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'JetBrains-Mono-Regular';
+    src: url('./JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'PingFangSC-Regular';
+    src: url('./PingFangSC-Regular.woff2') format('woff2');
+}

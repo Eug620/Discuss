@@ -1,9 +1,9 @@
-@use'../font/woff2/index.css';
+@use'../font/index.css';
 
 html {
     /* 定义变量 */
     // --bgColor: rgb(226, 227, 228);
-    font-family: 'PingFangSC-Regular-woff2';
+    font-family: JetBrains-Mono-Regular, PingFangSC-Regular, sans-serif;
 }
 
 #app {
