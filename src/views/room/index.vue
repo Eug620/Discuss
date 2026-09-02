@@ -114,7 +114,7 @@ import { useSocketStore } from "@/store/modules/socket";
 import { useUserStore } from "@/store/modules/user";
 import { useRoomStore } from "@/store/modules/room";
 import { ref, watch, watchEffect } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { Socket } from "socket.io-client";
 import { computed, onMounted } from "vue";
 import ServerApi from "@/api";
@@ -131,6 +131,7 @@ const userStore = useUserStore();
 const roomStore = useRoomStore();
 const story = ref("");
 const route = useRoute();
+const router = useRouter()
 
 // 获取房间消息历史
 const getHistory = computed(() => {
@@ -155,6 +156,10 @@ const getUserInfo = (user_id: string) => {
 const getRoomInfo = computed(() => {
   return roomStore.getRoomMap[route.params.id as string]?.room_info || {};
 });
+// 无房间信息时，跳转404
+watchEffect(() => {
+  if (!getRoomInfo.value.id) router.push('404')
+})
 
 // 监听路由变化
 const applyList = ref([]);

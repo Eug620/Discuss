@@ -69,7 +69,8 @@ export const initRoutes = [
                     icon: 'IconMessage'
                 },
                 component: () => import('@/views/friend/index.vue')
-            }
+            },
+            { path: '404', name: 'friend-404', component: () => import('@/views/404/index.vue') }
         ]
     },
     // 房间
@@ -137,7 +138,8 @@ export const initRoutes = [
                     icon: 'IconMessage'
                 },
                 component: () => import('@/views/room/index.vue')
-            }
+            },
+            { path: '404', name: 'room-404', component: () => import('@/views/404/index.vue') }
         ]
     },
     {

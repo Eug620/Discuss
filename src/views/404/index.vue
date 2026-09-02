@@ -1,14 +1,14 @@
-<template lang="">
-    <div>
-        404 not found
+<template>
+    <div class="flex items-center justify-center h-screen">
+        <div class="text-center cursor-pointer">
+            <h1 class="text-3xl font-bold">404</h1>
+            <p class="text-lg font-bold">not found</p>
+        </div>
     </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const notFound = ref(true)
 
 </script>
 <style lang="">
-    
+
 </style>

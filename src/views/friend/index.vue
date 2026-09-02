@@ -111,8 +111,8 @@
 <script setup lang="ts">
 import { useSocketStore } from "@/store/modules/socket";
 import { useFriendStore } from "@/store/modules/friend";
-import { computed, onMounted, ref, nextTick, watch } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onMounted, ref, nextTick, watch, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { Socket } from "socket.io-client";
 import dayjs from "@/plugin/dayjs";
 import serverApi from "@/api";
@@ -126,6 +126,7 @@ const friendStore = useFriendStore();
 
 const story = ref("");
 const route = useRoute();
+const router = useRouter()
 
 const getHistory = computed(() => {
   return socketStore.userMessageMap.get(route.params.id as string) || [];
@@ -133,6 +134,10 @@ const getHistory = computed(() => {
 
 const getFriendInfo = computed(() => {
   return friendStore.getFriendMap[route.params.id as string]?.friend_info || {}
+})
+// 无好友信息时，跳转404
+watchEffect(() => {
+  if (!getFriendInfo.value.id) router.push('404')
 })
 
 
